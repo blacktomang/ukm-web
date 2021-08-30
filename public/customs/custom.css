@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+:root{
+  --primary-color:#00699e;
+  --second-color:#0083c5;
+ 
+}
+*{
+   font-family: "Poppins";
+}
+@media screen and (min-width:900px){
+  .oke-nav{
+    width:70%;
+  }
+}
+#app{
+  padding-bottom:2rem;
+}
+.carousel-item{
+  max-height:calc(100vh - 2rem);
+}
+.card{
+  box-shadow:0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: all 0.5 ease-in;
+  border-radius: 1rem;
+  margin-top:2rem;
+  cursor: pointer;
+}
+.card:hover{
+  box-shadow:0 0.25rem 0.5rem rgba(0, 0, 0, 0.075);
+}
+.buyButton{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  font-size: 1.25rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 1rem 0 1rem 0;
+  color: white;
+}
+.detailButton{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  font-size: 1rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0 1rem 0 1rem;
+  color: white;
+}
+a.button{
+  padding: .5rem;
+  background-color: var(--primary-color);
+  transition: all .5s ease;
+text-decoration: none;
+}
+a.button:hover{
+color: white;
+}
+/* .auth-container{
+  height: calc(100vh - 100px);
+} */
+@media screen and (min-width:900px){
+  .auth-container{
+    width:50%;
+  }
+}
