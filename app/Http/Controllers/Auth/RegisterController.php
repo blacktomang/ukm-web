@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RegisterController extends Controller
 {
@@ -14,6 +17,7 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function chooseRole()
     {
         return view('auth.getrole');
@@ -23,9 +27,14 @@ class RegisterController extends Controller
         $role = $request->get('role');
         return redirect()->route('register.index', ['role' => $role]);
     }
-    public function index()
+    public function index(Request $request)
     {
-       return view('auth.register');
+        $role = $request->get('role');
+        // dd($role);
+        if ($role=='buyer' || $role =='seller' && $role !=null) {
+            return view('auth.register', compact('role'));
+        }
+        return $this->chooseRole();
     }
 
     /**
@@ -47,17 +56,31 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
+        $inputRole = $request->get('role');
+        $emailOrnib = $inputRole == 'buyer' ? "email" : 'nib';
+        $nibOrEmailRule = $inputRole == 'buyer'? 'required|email|unique:users': 'required|unique:users';
         $validated = $request->validate([
             'name'=> 'required|max:255|min:3',
             'username'=> 'required|min:3|max:255|unique:users',
-            'email' => 'required|email|unique:users',
+           'email' =>   $nibOrEmailRule,
             'phoneNumber'=> 'required|min:8',
             'password' => 'required|min:6',
             'address'=> 'required|min:5'
         ]);
+
         $validated['password'] = Hash::make($validated['password']);
-        User::create($validated);
-        return redirect('/login');
+// dd($inputRole);
+        if ($inputRole) {
+            $spatieRole = Role::where('name','=', $inputRole)->first();
+            $user = User::create($validated);
+            $user->assignRole($spatieRole);
+            $request->session()->flash('success', 'Registrasi berhasil, silahkan login');
+            return redirect('/login');
+        }else {
+            return back();
+        }
     }
 
     /**

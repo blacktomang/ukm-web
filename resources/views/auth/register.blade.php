@@ -28,7 +28,19 @@
         </div>
         @enderror
       </div>
+      <input type="text" name="role" value="{{$role}}" hidden>
       <div class="mb-3 mb-3 d-flex flex-column align-items-start">
+        @if ($role=='seller')
+            <label for="formGroupExampleInput" class="form-label">(NIB)No Induk Berusaha</label>
+              <input type="text" class="form-control @error('nib') is-invalid @enderror" id="formGroupExampleInput"
+                placeholder="NIB" name="email" value="{{old('nib')}}">
+              @error('nib')
+              <div class="invalid-feedback">
+                {{$message}}
+              </div>
+              @enderror
+              </div>
+        @else
         <label for="formGroupExampleInput" class="form-label">Email</label>
         <input type="text" class="form-control @error('email') is-invalid @enderror" id="formGroupExampleInput"
         placeholder="Email" name="email" value="{{old('email')}}">
@@ -38,11 +50,12 @@
         </div>
         @enderror
       </div>
+        @endif
       <div class="mb-3 mb-3 d-flex flex-column align-items-start">
         <label for="formGroupExampleInput2" class="form-label">Kata Sandi</label>
-        @error('password')
         <input type="password" class="form-control @error('password') is-invalid @enderror" id="formGroupExampleInput2"
         name="password" placeholder="Kata Sandi">
+        @error('password')
         <div class="invalid-feedback">
           {{$message}}
         </div>
@@ -61,7 +74,7 @@
       <div class="mb-3 mb-3 d-flex flex-column align-items-start">
         <label for="formGroupExampleInput2" class="form-label @error('address') is-invalid @enderror"> Alamat</label>
         <textarea class="form-control @error('address') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" placeholder="Alamat Lengkap"
-        name="address" value="{{old('address')}}"></textarea>
+        name="address" value="{{old('address')}}">{{old('address')}}</textarea>
         @error('address')
         <div class="invalid-feedback">
           {{$message}}

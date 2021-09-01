@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,10 +11,3 @@
   <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('customs/custom.css')}}">
 </head>
-
-<body style="min-height: 100vh">
-    @yield('content')
-
- @include('slices.footernscript')
-</body>
-</html>

@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::resource('login', LoginController::class);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/chooseRole', [RegisterController::class, 'chooseRole'])->name('choose-role');
 Route::post('/getRole', [RegisterController::class, 'getRole'])->name('get-role');
 Route::resource('register', RegisterController::class);

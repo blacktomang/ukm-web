@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -33,9 +34,29 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+        return view('auth.login');
+       
+    }
     public function store(Request $request)
     {
-        //
+        $credential = $request->validate([
+            'username' => 'required|min:3|max:255',
+            'password' => 'required'
+        ]);
+        if (Auth::attempt($credential)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+        return back()->with('loginError', 'Login gagal!');
     }
 
     /**
@@ -80,6 +101,6 @@ class LoginController extends Controller
      */
     public function destroy($id)
     {
-        //
+     
     }
 }

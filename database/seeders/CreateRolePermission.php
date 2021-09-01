@@ -44,7 +44,7 @@ class CreateRolePermission extends Seeder
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
-        // create demo users
+        // // create demo users
         $user = \App\Models\User::factory()->create([
             'name' => 'Buyer',
             'password' => bcrypt('12345678'),
@@ -52,18 +52,18 @@ class CreateRolePermission extends Seeder
         ]);
         $user->assignRole($role3);
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Seller',
-            'password' => bcrypt('12345678'),
-            'email' => 'seller@test.com',
-        ]);
-        $user->assignRole($role2);
+        // $user = \App\Models\User::factory()->create([
+        //     'name' => 'Seller',
+        //     'password' => bcrypt('12345678'),
+        //     'email' => 'seller@test.com',
+        // ]);
+        // $user->assignRole($role2);
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Super-Admin User',
-            'password' => bcrypt('12345678'),
-            'email' => 'admin@test.com',
-        ]);
-        $user->assignRole($role1);
+        // $user = \App\Models\User::factory()->create([
+        //     'name' => 'Super-Admin User',
+        //     'password' => bcrypt('12345678'),
+        //     'email' => 'admin@test.com',
+        // ]);
+        // $user->assignRole($role1);
     }
 }
