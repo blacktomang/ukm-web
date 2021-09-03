@@ -1,7 +1,6 @@
-@section('title', 'Beranda' )
-@extends('slices.wrapper')
+@section('title', 'Login' )
+@extends('layouts.auth')
 @section('content')
-
 <div class="col container auth-container d-flex justify-content-center align-items-center" style="min-height: 90vh">
   <form action="{{route('login.store')}}" method="POST" class="d-flex text-center flex-column">
     @csrf

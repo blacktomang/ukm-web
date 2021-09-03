@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Seller\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +19,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/about', function () {
+    return view('about');
+});
+//temp route
+Route::get('/atur', function(){
+    return view('pages.seller.index');
+});
+//endtemptou
 Route::resource('login', LoginController::class);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/chooseRole', [RegisterController::class, 'chooseRole'])->name('choose-role');
 Route::post('/getRole', [RegisterController::class, 'getRole'])->name('get-role');
 Route::resource('register', RegisterController::class);
+Route::resource('stores', StoreController::class);

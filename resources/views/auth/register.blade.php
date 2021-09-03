@@ -1,6 +1,6 @@
 @section('title', 'Register' )
 @extends('layouts.auth')
-@section('main-content')
+@section('content')
 <div class="container auth-container d-flex mt-4">
   <form action="{{route('register.store')}}" method="POST" class="d-flex align-items-center text-center">
     @csrf
@@ -33,7 +33,7 @@
         @if ($role=='seller')
             <label for="formGroupExampleInput" class="form-label">(NIB)No Induk Berusaha</label>
               <input type="text" class="form-control @error('nib') is-invalid @enderror" id="formGroupExampleInput"
-                placeholder="NIB" name="email" value="{{old('nib')}}">
+                placeholder="NIB" name="email" value="{{old('email')}}">
               @error('nib')
               <div class="invalid-feedback">
                 {{$message}}

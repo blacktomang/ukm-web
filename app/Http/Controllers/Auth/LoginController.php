@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,7 +54,7 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
         if (Auth::attempt($credential)) {
-            $request->session()->regenerate();
+           $request->session()->regenerate();
             return redirect()->intended('/');
         }
         return back()->with('loginError', 'Login gagal!');
@@ -65,9 +66,9 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    private function show($id)
     {
-        //
+        return User::find($id)->first();
     }
 
     /**

@@ -8,6 +8,19 @@
   <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/x-icon">
   <title>@yield('title') | UKM Desa Tombolo</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+  <!-- <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"> -->
+  <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/x-icon">
+
+  <link rel="stylesheet" href="{{asset('template/assets/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('template/assets/css/templatemo.css')}}">
+  <link rel="stylesheet" href="{{asset('template/assets/css/custom.css')}}">
+
+  <!-- Load fonts style after rendering the layout styles -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+  <link rel="stylesheet" href="{{asset('template/assets/css/fontawesome.min.css')}}">
+  @yield('another-style-sheet')
   <link rel="stylesheet" href="{{asset('customs/custom.css')}}">
+
 </head>
+
+<body>
