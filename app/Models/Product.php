@@ -14,7 +14,7 @@ class Product extends Model
         'product_price',
         'product_image'
     ];
-    public function store()
+    public function stores()
     {
         return $this->belongsTo(Store::class);
     }

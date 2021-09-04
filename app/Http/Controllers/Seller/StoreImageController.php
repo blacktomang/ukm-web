@@ -35,16 +35,23 @@ class StoreImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(array $files, $storeId, $nib)
-    {
-    
-        for ($i=0; $i < $files; $i++) { 
-            $imageName = time() . '.' . $files[$i]->extension();
-            $files[$i]->move(public_path('images/'."store/".$nib), $imageName);
-            StoreImage::create([
-                'store_id' => $storeId,
-                'db_address' =>  asset('images/' . "store/" . $nib . $imageName),
-            ]);
+    {try {
+        for ($i=0; $i < count($files); $i++) { 
+            if (isset($files[$i])) {
+                # code...
+                $imageName = time() . '.' . $files[$i]->extension();
+                $files[$i]->move(public_path('images/'."store/".$nib), $imageName);
+                StoreImage::create([
+                    'store_id' => $storeId,
+                    'db_address' =>  asset('images/' . "store/" . $nib . $imageName),
+                ]);
+            }
         }
+        //code...
+    } catch (\Throwable $th) {
+        dd($th);
+    }
+    
         //
     }
 

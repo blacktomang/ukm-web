@@ -15,6 +15,7 @@ class StoreController extends Controller
      */
     public function index()
     {
+        return view('pages.seller.index');
         //
     }
 
@@ -36,7 +37,7 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-  
+//   dd($request->filenames);
        $request->validate([
            'user_id' =>'required',
            'name' => 'required',
@@ -44,16 +45,19 @@ class StoreController extends Controller
            'contact' => 'required',
            'description' => 'required',
            'address'=>'required',
-            'filenames' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'filenames' => 'required',
+            // 'filenames.*' => 'required'
        ]);
-       $store = Store::create(['user_id' => 'required',
-            'name' => $request->name,
+       $store = Store::create([
+           'user_id' => $request->user_id,
+            'store_name' => $request->name,
             'contact' => $request->contact,
             'description' => $request->description ,
             'address' => $request->address ,
             // 'images' => $request->filenames ,
        ]);
-        app('App\Http\Controllers\StoreImageController')->create($request->filenames, $store->id, $request->nib);
+        app('App\Http\Controllers\Seller\StoreImageController')->store($request->filenames, $store->id, $request->nib);
+        return redirect('/');
     }
 
     /**

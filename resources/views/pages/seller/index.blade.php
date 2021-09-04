@@ -90,7 +90,26 @@
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-      <form action="{{route('stores.store')}}" class="login100-form validate-form flex-sb flex-w">
+      @if (count($errors) > 0)
+      
+      <div class="alert alert-danger">
+      
+        <strong>Sorry!</strong> There were more problems with your HTML input.<br><br>
+      
+        <ul>
+      
+          @foreach ($errors->all() as $error)
+      
+          <li>{{ $error }}</li>
+      
+          @endforeach
+      
+        </ul>
+      
+      </div>
+      
+      @endif
+      <form action="{{route('stores.store')}}" method="POST" class="login100-form validate-form flex-sb flex-w" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
         <input type="hidden" name="nib" value="{{Auth::user()->email}}">

@@ -29,7 +29,7 @@
            <a class="nav-link active" aria-current="page" href="#">Profil</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="#product">Dashboard UKM</a>
+           <a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard UKM</a>
          </li>
          <li class="nav-item">
            <a class="nav-link" href="#product" onClick="event.preventDefault(); document.getElementById('form-logout').submit()">Logout</a>

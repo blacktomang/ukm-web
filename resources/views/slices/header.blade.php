@@ -9,7 +9,6 @@
   <title>@yield('title') | UKM Desa Tombolo</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <!-- <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"> -->
-  <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/x-icon">
 
   <link rel="stylesheet" href="{{asset('template/assets/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('template/assets/css/templatemo.css')}}">

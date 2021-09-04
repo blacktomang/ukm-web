@@ -46,7 +46,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-     public function store()
+     public function stores()
     {
         if($this->hasRole('seller')){
             return $this->hasOne(Store::class);
@@ -55,4 +55,5 @@ class User extends Authenticatable
         }
         
     }
+    
 }

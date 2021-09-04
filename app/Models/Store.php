@@ -12,6 +12,7 @@ class Store extends Model
             'user_id',
             'store_name',
             'address',
+        'description',
             'contact'
   ];
 
@@ -22,6 +23,9 @@ class Store extends Model
     public function storeImages()
     {
         return $this->hasMany(StoreImage::class);
+    }
+    public function owner(){
+        return $this->belongsTo(User::class);
     }
 
 }
