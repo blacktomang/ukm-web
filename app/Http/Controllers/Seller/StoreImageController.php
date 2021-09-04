@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Seller;
 use App\Http\Controllers\Controller;
 use App\Models\StoreImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class StoreImageController extends Controller
 {
@@ -36,23 +37,24 @@ class StoreImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(array $files, $storeId, $nib)
-    {try {
-        for ($i=0; $i < count($files); $i++) { 
-            if (isset($files[$i])) {
-                # code...
-                $imageName = time() . '.' . $files[$i]->extension();
-                $files[$i]->move(public_path($this->pathImage.$nib), $imageName);
-                StoreImage::create([
-                    'store_id' => $storeId,
-                    'db_address' =>  asset($this->pathImage . $nib . $imageName),
-                ]);
+    {
+        try {
+            for ($i = 0; $i < count($files); $i++) {
+                if (isset($files[$i])) {
+                    $hashedName = $files[$i]->hashName();
+                    $imageName = time() . $hashedName;
+                    $files[$i]->move(public_path($this->pathImage . $nib), $imageName);
+                    StoreImage::create([
+                        'store_id' => $storeId,
+                        'db_address' =>  $this->pathImage . $nib . "/" . $imageName,
+                    ]);
+                }
             }
+            //code...
+        } catch (\Throwable $th) {
+            dd($th);
         }
-        //code...
-    } catch (\Throwable $th) {
-        dd($th);
-    }
-    
+
         //
     }
 
@@ -98,6 +100,17 @@ class StoreImageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $storeImage = StoreImage::find($id);
+        try {
+            $image = $storeImage->db_address;
+            File::delete($image);
+            $storeImage->delete();
+            toast("Foto berhasil dihapus", 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            toast("Terjadi kesalahan saat menghapus foto", "error");
+            return
+                redirect()->back();
+        }
     }
 }

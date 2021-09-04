@@ -9,23 +9,24 @@ class Store extends Model
 {
     use HasFactory;
     protected $fillable = [
-            'user_id',
-            'store_name',
-            'address',
+        'user_id',
+        'store_name',
+        'address',
         'description',
-            'contact'
-  ];
+        'contact'
+    ];
 
-  public function products(){
-     return $this->hasMany(Product::class);
-  }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 
     public function storeImages()
     {
         return $this->hasMany(StoreImage::class);
     }
-    public function owner(){
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
-
 }

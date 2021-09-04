@@ -19,26 +19,26 @@
           <div>Produk</div>
         </div>
       </div>
-      <!-- <div class="d-flex align-items-center ">
-        <div class="rounded-circle bg-primary" style="padding:.5rem .7rem">
-          <i style="font-size: 25px;" class="fab fa-telegram-plane text-white"></i>
+      @hasrole('admin')
+      <div class="d-flex align-items-center ">
+        <div class="rounded-circle bg-primary p-2">
+          <i style="font-size: 25px;" class="fas fa-people text-white"></i>
         </div>
         <div class="d-flex flex-column justify-content-start ml-2">
-          <!-- <div> -->
-          {{-- <p class="lead pb-0 mb-0 font-weight-bold text-primary"><?= $inbox ?></p> --}}
-          <!-- </div> -->
-          <div>Surat Keluar</div>
+          <div>
+            <p class="lead pb-0 mb-0 font-weight-bold text-primary"><?= $user ?></p>
+          </div>
+          <div>User</div>
         </div>
-      </div> -->
-      @hasrole('admin')
+      </div>
       <div class="d-flex align-items-center ">
         <div class="rounded-circle bg-primary p-2">
           <i style="font-size: 25px;" class="fas fa-comments text-white"></i>
         </div>
         <div class="d-flex flex-column justify-content-start ml-2">
-          <!-- <div> -->
-          {{-- <p class="lead pb-0 mb-0 font-weight-bold text-primary"><?= $inbox ?></p> --}}
-          <!-- </div> -->
+          <div>
+            <p class="lead pb-0 mb-0 font-weight-bold text-primary"><?= $user ?></p>
+          </div>
           <div>Memo</div>
         </div>
       </div>
@@ -51,7 +51,7 @@
 @section('script')
 {{-- <script>
   console.log("{{$time}}");
-  var oke = moment("{{$time}}").fromNow(); // 10 years ago
-  $('#time').text(oke);
+var oke = moment("{{$time}}").fromNow(); // 10 years ago
+$('#time').text(oke);
 </script> --}}
 @endsection

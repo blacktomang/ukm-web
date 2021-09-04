@@ -13,7 +13,7 @@
      <ul class="sidebar-menu">
        <li class=" @if($paths=='dashboard') active @endif"><a class="nav-link" href="/dashboard"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
        @hasrole('seller')
-       <li class="@if($paths=='stores') active @endif"><a class="nav-link" href="/inbox"><i class="fas fa-store"></i> <span>Profil UKM</span></a></li>
+       <li class="@if($paths=='stores') active @endif"><a class="nav-link" href="/stores"><i class="fas fa-store"></i> <span>Profil UKM</span></a></li>
        <li class="@if($paths=='product') active @endif"><a class="nav-link" href="/product"><i class="fas fa-list-alt"></i><span>Produk</span></a></li>
        {{-- <li><a class="nav-link" href="/memo"><i class="fas fa-comments"></i> <span>Memo</span></a></li> --}}
        @endhasrole

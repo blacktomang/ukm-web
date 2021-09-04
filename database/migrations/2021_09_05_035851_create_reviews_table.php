@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDescriptionToStoresTable extends Migration
+class CreateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddDescriptionToStoresTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('description')->after('product_name');
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->id();
+            $table->integer('product_id');
+            $table->integer('user_id');
+            $table->string('value');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddDescriptionToStoresTable extends Migration
      */
     public function down()
     {
-        Schema::table('stores', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('reviews');
     }
 }

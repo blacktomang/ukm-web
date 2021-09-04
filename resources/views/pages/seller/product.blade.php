@@ -20,27 +20,29 @@
               <th>No</th>
               <th>Nama Produk</th>
               <th>Harga</th>
+              <th>Deskripsi</th>
+              <th>Stok</th>
               <th>Gambar Produk</th>
               <th>Aksi</th>
             </tr>
             @foreach ($products as $key => $product)
             <tr>
-                  <td>{{$key+1}}</td>
-                  <td>{{$product->product_name}}</td>
-                  <td>{{$product->product_price}}</td>
-                  <td><img src="{{$product->product_image}}" alt="" srcset="" width="50px" height="30px"></td>
-                  <td>
-                    <a href="#" class="btn btn-success" id="detailInbox{{$key}}">Detail</a>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-product').submit();" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-                    <form id="delete-product" action="{{ route('product.destroy', $product->id) }}" method="POST" style="display: none;">
-                      @method('DELETE')
-                      @csrf
-                    </form>
-                    {{-- modal_edit{{$key}} --}}
-                    <a href="#" class="btn btn-warning" id="editInbox{{$key}}"><i class="far fa-edit"></i></a>
-                    {{-- <button onclick="alert('modal_edit{{$key}}');
-                    document.getElementById('modal_edit{{$key}}').classList.toggle('show')"><i class="far fa-edit"></i></button> --}}
-                  </td>
+              <td>{{$key+1}}</td>
+              <td>{{$product->product_name}}</td>
+              <td>{{$product->product_price}}</td>
+              <td>{{$product->description}}</td>
+              <td>{{$product->stocks}}</td>
+              <td><img src="{{$product->product_image}}" alt="" srcset="" width="50px" height="30px"></td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <a href="#" onclick="event.preventDefault(); document.getElementById('delete-product').submit();" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                  <form id="delete-product" action="{{route('product.destroy',$product->id)}}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  </form>
+                  <a href="{{route('product.edit', $product->id)}}" class="btn btn-warning" id="editInbox{{$key}}"><i class="far fa-edit"></i></a>
+                </div>
+              </td>
             </tr>
             @endforeach
           </tbody>
@@ -78,15 +80,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="
-      {{route('product.store')}}
-      "
-       method="POST" 
-      id="form-add-inbox-data" enctype="multipart/form-data">
+      <form action="{{route('product.store')}}" method="POST" id="form-add-inbox-data" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="store_id" value="{{$store_data->id}}">
-        {{-- <input type="text" class="form-control" name="user_id" value="{{Auth::id()}}" hidden>
-        <input type="text" class="form-control" name="inbox_origin" value="{{Auth::user()->name}}" hidden> --}}
         <div class="modal-body row">
           <div class="form-group col-md-6">
             <label for="">Nama</label>
@@ -94,28 +90,20 @@
           </div>
           <div class="form-group col-md-6">
             <label for="">Harga</label>
-            <input type="text" class="form-control" name="product_price">
+            <input type="number" class="form-control" name="product_price">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Deskripsi Produk</label>
+            <input type="text" class="form-control" name="description">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Stock</label>
+            <input type="number" class="form-control" name="stocks">
           </div>
           <div class="form-group col-md-12">
             <label for="">Gambar</label>
-          <input type="file" class="form-control-file" name="product_image" accept="image">
+            <input type="file" class="form-control-file" name="product_image" accept="image">
           </div>
-          {{-- <div class="form-group col-md-6">
-            <label for="">Perihal</label>
-            <input type="text" class="form-control" name="regarding">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="">Tanggal Surat Diterima</label>
-            <input type="date" class="form-control" name="entry_date">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="">Example file input</label>
-            <input type="file" class="form-control-file" name="uploadfile">
-          </div>
-          <div class="form-group col-md-12">
-            <label for="">Notes</label>
-            <textarea class="form-control" name="notes"></textarea>
-          </div> --}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -129,7 +117,7 @@
 @section('script')
 <script>
   $('#addInbox').on('click', () => {
-          $('#modal_tambah').modal('show')
-        });
+    $('#modal_tambah').modal('show')
+  });
 </script>
 @endsection

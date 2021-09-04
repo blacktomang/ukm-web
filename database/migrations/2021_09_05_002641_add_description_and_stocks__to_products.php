@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDescriptionToStoresTable extends Migration
+class AddDescriptionAndStocksToProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddDescriptionToStoresTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('description')->after('product_name');
+            // $table->string('description')->after('product_name');
+            $table->integer('stocks')->after('description');
         });
     }
 
@@ -25,7 +26,7 @@ class AddDescriptionToStoresTable extends Migration
      */
     public function down()
     {
-        Schema::table('stores', function (Blueprint $table) {
+        Schema::table('products', function (Blueprint $table) {
             //
         });
     }

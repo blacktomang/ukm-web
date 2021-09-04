@@ -2,8 +2,7 @@
 @extends('layouts.web')
 @section('content')
 <!-- Modal -->
-<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="w-100 pt-1 mb-5 text-right">
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -30,7 +29,7 @@
         </p>
       </div>
       <div class="col-md-4">
-        <img src="assets/img/about-hero.svg" alt="About Hero">
+        <img src="{{asset('logo.png')}}" alt="About Hero" height="150px" width="150px">
       </div>
     </div>
   </div>
@@ -41,7 +40,7 @@
 <section class="container py-5">
   <div class="row text-center pt-5 pb-3">
     <div class="col-lg-6 m-auto">
-      <h1 class="h1">Our Services</h1>
+      <h1 class="h1">UKM Desa Tombolo</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         Lorem ipsum dolor sit amet.
@@ -49,38 +48,17 @@
     </div>
   </div>
   <div class="row">
-
-    <div class="col-md-6 col-lg-3 pb-5">
-      <div class="h-100 py-5 services-icon-wap shadow">
-        <div class="h1 text-success text-center"><i class="fa fa-truck fa-lg"></i></div>
-        <h2 class="h5 mt-4 text-center">Delivery Services</h2>
+    @foreach ($stores as $store)
+    {{-- <a href=""> --}}
+      <div class="col-md-6 col-lg-3 pb-5" style="cursor: pointer" onclick="alert('{{$store->description}}')">
+        <div class="h-100 py-5 services-icon-wap shadow">
+          <div class="h1 text-success text-center"><i class="fas fa-store"></i></div>
+          <h2 class="h5 mt-4 text-center" style="text-decoration: none">{{$store->store_name}}</h2>
+          <p class="p mt-1 text-center" >{{$store->description}}</p>
+        </div>
       </div>
-    </div>
-
-    <div class="col-md-6 col-lg-3 pb-5">
-      <div class="h-100 py-5 services-icon-wap shadow">
-        <div class="h1 text-success text-center"><i class="fas fa-exchange-alt"></i></div>
-        <h2 class="h5 mt-4 text-center">Shipping & Return</h2>
-      </div>
-    </div>
-
-    <div class="col-md-6 col-lg-3 pb-5">
-      <div class="h-100 py-5 services-icon-wap shadow">
-        <div class="h1 text-success text-center"><i class="fa fa-percent"></i></div>
-        <h2 class="h5 mt-4 text-center">Promotion</h2>
-      </div>
-    </div>
-
-    <div class="col-md-6 col-lg-3 pb-5">
-      <div class="h-100 py-5 services-icon-wap shadow">
-        <div class="h1 text-success text-center"><i class="fa fa-user"></i></div>
-        <h2 class="h5 mt-4 text-center">24 Hours Service</h2>
-      </div>
-    </div>
+    {{-- </a> --}}
+    @endforeach
   </div>
 </section>
-<!-- End Section -->
-
-
-<!--End Brands-->
 @endsection

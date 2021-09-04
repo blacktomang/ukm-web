@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -15,6 +17,14 @@ class StoreController extends Controller
      */
     public function index()
     {
+        $id = Auth::id();
+        $user = User::find($id);
+        if($user->stores()->exists()){
+            // dd($user->stores);
+            $store = $user->stores;
+            $store_images = $store->storeImages;
+            return view('pages.seller.ukmprofile', compact('store', 'store_images'));
+        }
         return view('pages.seller.index');
         //
     }
@@ -37,7 +47,6 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-//   dd($request->filenames);
        $request->validate([
            'user_id' =>'required',
            'name' => 'required',
@@ -57,7 +66,7 @@ class StoreController extends Controller
             // 'images' => $request->filenames ,
        ]);
         app('App\Http\Controllers\Seller\StoreImageController')->store($request->filenames, $store->id, $request->nib);
-        return redirect('/');
+        return redirect('/dahboard');
     }
 
     /**
@@ -91,7 +100,26 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $store = Store::find($id);
+        try {
+             $store->update([
+                'store_name' => $request->store_name,
+                'contact' => $request->contact,
+                'description' => $request->description,
+                'address' => $request->address,
+            ]);
+            if ($request->filenames) {
+                app('App\Http\Controllers\Seller\StoreImageController')->store($request->filenames, $store->id, $request->nib);
+            }
+            toast("Profil UKM berhasil diupdate", "success");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+
+            toast($th->getMessage(), "error");
+            return redirect()->back();
+
+        }
+       
     }
 
     /**
