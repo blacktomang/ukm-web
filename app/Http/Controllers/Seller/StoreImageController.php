@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class StoreImageController extends Controller
 {
+    private $pathImage = "upload/stores/";
     /**
      * Display a listing of the resource.
      *
@@ -40,10 +41,10 @@ class StoreImageController extends Controller
             if (isset($files[$i])) {
                 # code...
                 $imageName = time() . '.' . $files[$i]->extension();
-                $files[$i]->move(public_path('images/'."store/".$nib), $imageName);
+                $files[$i]->move(public_path($this->pathImage.$nib), $imageName);
                 StoreImage::create([
                     'store_id' => $storeId,
-                    'db_address' =>  asset('images/' . "store/" . $nib . $imageName),
+                    'db_address' =>  asset($this->pathImage . $nib . $imageName),
                 ]);
             }
         }
