@@ -42,7 +42,7 @@
            <a class="nav-link @if($paths=='/')active @endif" href="/">Home</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link @if($paths=='/about')active @endif" href="/ukm-products">Produl Ukm</a>
+           <a class="nav-link @if($paths=='ukm-products')active @endif" href="/ukm-products">Produl Ukm</a>
          </li>
          <li class="nav-item">
            <a class="nav-link @if($paths=='about')active @endif" href="/about">Tentang</a>

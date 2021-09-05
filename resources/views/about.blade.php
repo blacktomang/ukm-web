@@ -49,15 +49,13 @@
   </div>
   <div class="row">
     @foreach ($stores as $store)
-    {{-- <a href=""> --}}
-      <div class="col-md-6 col-lg-3 pb-5" style="cursor: pointer" onclick="alert('{{$store->description}}')">
+      <div class="col-md-6 col-lg-3 pb-5" style="cursor: pointer" onclick="window.location.replace('/store/{{$store->id}}')">
         <div class="h-100 py-5 services-icon-wap shadow">
           <div class="h1 text-success text-center"><i class="fas fa-store"></i></div>
           <h2 class="h5 mt-4 text-center" style="text-decoration: none">{{$store->store_name}}</h2>
           <p class="p mt-1 text-center" >{{$store->description}}</p>
         </div>
       </div>
-    {{-- </a> --}}
     @endforeach
   </div>
 </section>

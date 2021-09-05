@@ -53,4 +53,6 @@ Route::prefix('/')->group(function () {
     Route::get('ukm-products', [ViewController::class, 'product']);
     Route::get('ukm-product/{id}', [ViewController::class, 'detailProduct']);
     Route::get('profil', [ViewController::class, 'profil']);
+    Route::get('store/{id}', [ViewController::class, 'storeDetail']
+    );
 });

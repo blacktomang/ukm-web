@@ -42,4 +42,8 @@ class ViewController extends Controller
     public function profil(){
 
     }
+    public function storeDetail($id){
+        $store = Store::find($id);
+        return view('pages.store.index', compact('store'));
+    }
 }
