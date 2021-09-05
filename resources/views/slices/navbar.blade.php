@@ -1,8 +1,10 @@
  @php
  $paths = Request::path();
+ $regex1 = "/store/";
  @endphp
  <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
    <div class="container text-light">
+     <div>{{$paths}}</div>
      <div class="w-100 d-flex justify-content-between">
        <div>
          <i class="fa fa-envelope mx-2"></i>
@@ -45,7 +47,7 @@
            <a class="nav-link @if($paths=='ukm-products')active @endif" href="/ukm-products">Produl Ukm</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link @if($paths=='about')active @endif" href="/about">Tentang</a>
+           <a class="nav-link @if($paths=='about'||preg_match($regex1, $paths)==1)active @endif" href="/about">Tentang</a>
          </li>
 
        </ul>
@@ -62,13 +64,18 @@
        <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
          <i class="fa fa-fw fa-search text-dark mr-2"></i>
        </a>
-       <a class="nav-icon position-relative text-decoration-none" @if (Auth::check()) href="#" data-bs-toggle="modal" data-bs-target="#templatemo_login" @else href="/login" @endif>
-         @if (Auth::check())
-         <i class="fa fa-fw fa-user text-dark mr-3"></i>
-         @else
-         <i class="fa fa-fw fa-sign-in-alt text-dark mr-3"></i>
-         @endif
        </a>
+     </div>
+     <div class="navbar align-self-center d-flex">
+       <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+         <a class="nav-icon position-relative text-decoration-none" @if (Auth::check()) href="#" data-bs-toggle="modal" data-bs-target="#templatemo_login" @else href="/login" @endif>
+           @if (Auth::check())
+           <i class="fa fa-fw fa-user text-dark mr-3"></i>
+           @else
+           <i class="fa fa-fw fa-sign-in-alt text-dark mr-3"></i>
+           @endif
+         </a>
+       </div>
      </div>
    </div>
 

@@ -31,7 +31,7 @@ Table of contents
 /* Typography */
 body, ul, li, p, a, label, input, div {
   font-family: 'Roboto', sans-serif;
-  font-size: 18px !important;
+  font-size: 18px ;
   font-weight: 300 !important;
 }
 .h1 {
@@ -50,7 +50,7 @@ body, ul, li, p, a, label, input, div {
 }
 /* General */
 .logo { font-weight: 500 !important;}
-.text-warning {  color: #ede861 !important;}
+.text-warning {  color: #f0e701 !important;}
 .text-muted { color: #bcbcbc !important;}
 .text-success { color: #00599e !important;}
 .text-light { color: #cfd6e1 !important;}
@@ -181,7 +181,7 @@ body, ul, li, p, a, label, input, div {
 @media (min-width: 992px) {
   #templatemo_main_nav .navbar-nav {max-width: 550px;}
   #template-mo-zay-hero-carousel .carousel-item {min-height: 30rem !important;}
-  .product-wap .h3, .product-wap li, .product-wap i, .product-wap p {font-size: 18px !important;}
+  .product-wap .h3, .product-wap li, .product-wap i, .product-wap p {font-size: 18px ;}
   .product-wap .product-color-dot {
     width: 12px;
     height: 12px;
