@@ -4,7 +4,7 @@
  @endphp
  <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
    <div class="container text-light">
-     <div>{{$paths}}</div>
+     {{-- <div>{{$paths}}</div> --}}
      <div class="w-100 d-flex justify-content-between">
        <div>
          <i class="fa fa-envelope mx-2"></i>
@@ -26,7 +26,7 @@
    <div class="container d-flex justify-content-between align-items-center">
 
      {{-- <a class="navbar-brand text-success logo h1 align-self-center" href="index.html"> --}}
-     <a class="navbar-brand" href="#">
+     <a class="navbar-brand" href="/">
        <img src="{{asset('logo.png')}}" alt="" height="50px" width="50px">
      </a>
      {{-- </a> --}}
@@ -37,8 +37,6 @@
 
      <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
        <div class="flex-fill">
-         {{-- <div>{{$paths}}
-       </div> --}}
        <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
          <li class="nav-item">
            <a class="nav-link @if($paths=='/')active @endif" href="/">Home</a>
@@ -67,7 +65,7 @@
        </a>
      </div>
      <div class="navbar align-self-center d-flex">
-       <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+       {{-- <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3"> --}}
          <a class="nav-icon position-relative text-decoration-none" @if (Auth::check()) href="#" data-bs-toggle="modal" data-bs-target="#templatemo_login" @else href="/login" @endif>
            @if (Auth::check())
            <i class="fa fa-fw fa-user text-dark mr-3"></i>
@@ -75,7 +73,7 @@
            <i class="fa fa-fw fa-sign-in-alt text-dark mr-3"></i>
            @endif
          </a>
-       </div>
+       {{-- </div> --}}
      </div>
    </div>
 

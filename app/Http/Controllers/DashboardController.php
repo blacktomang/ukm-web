@@ -18,11 +18,6 @@ class DashboardController extends Controller
             $products= count($store->products);
             return view('pages.seller.dashboard', compact('products'));
            
-        }else if($user->hasRole('admin')){
-            $user = User::all();
-            $store = count(Store::all());
-
-            return view('pages.seller.dashboard', compact('user', 'store'));
         }else{
             return back();
         }

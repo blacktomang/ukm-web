@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\InitiatorController;
+use App\Http\Controllers\Admin\WebBannerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
@@ -20,21 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/about', function () {
-//     return view('about');
-// });
-//temp route
-// Route::get('/atur', function(){
-//     return view('pages.seller.index');
-// });
-// Route::get('/dashboard', function () {
-//     return view('pages.seller.dashboard');
-// });
-//endtemptou
-Route::group(['middleware'=>['auth', 'isSeller']],function(){
+Route::group(['middleware' => ['auth', 'isSeller']], function () {
     Route::resource('/dashboard', DashboardController::class);
     Route::resource('product', ProductController::class);
     Route::resource('stores', StoreController::class);
@@ -53,6 +42,13 @@ Route::prefix('/')->group(function () {
     Route::get('ukm-products', [ViewController::class, 'product']);
     Route::get('ukm-product/{id}', [ViewController::class, 'detailProduct']);
     Route::get('profil', [ViewController::class, 'profil']);
-    Route::get('store/{id}', [ViewController::class, 'storeDetail']
-    );
+    Route::get('store/{id}', [ViewController::class, 'storeDetail']);
+});
+
+Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
+    Route::get('', [AdminController::class, 'index']);
+    Route::get('users', [AdminController::class, 'users']);
+    Route::get('products', [AdminController::class, 'products']);
+    Route::resource('initiators', InitiatorController::class);
+    Route::resource('banners', WebBannerController::class);
 });

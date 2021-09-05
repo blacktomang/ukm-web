@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsSeller
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,20 +17,17 @@ class IsSeller
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
-    { 
-            if (Auth::check()) {
-                $id = Auth::id();
-                $user = User::find($id);
-                if ($user->hasRole("seller")) {
-                    return $next($request);
-                }else{
-                    return redirect('/');
-                }
-                // The user is logged in...
-            }else{
+    {
+        if (Auth::check()) {
+            $id = Auth::id();
+            $user = User::find($id);
+            if ($user->hasRole("admin")) {
+                return $next($request);
+            } else {
                 return redirect('/');
             }
-        
+        } else {
+            return redirect('/');
+        }
     }
 }
-
