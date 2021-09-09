@@ -29,7 +29,7 @@
                     <div class="col d-grid">
                       @if (!Auth::check())
                       <button type="button" class="btn btn-success btn-lg" name="submit"
-                        onclick="window.location.replace('/login')">Login</button>
+                        onclick="window.location.replace('/login')">Login untuk memberikan review</button>
                       @endif
                       @if (Auth::check() && !$isUserComment && !$isUserRateIt)
                       <form action="{{route('komentReview',$product->id)}}" method="POST">
@@ -71,9 +71,25 @@
                             style="font-size:.5em; margin:0 .5rem;"><i class="fas fa-circle"></i></span><span
                             class="mb-1 ml-2 small">{{$comment["time"]}}</span>
                         </div>
-                        <div class="small"><span>{{$comment["comment"]}}</span></div>
+                        <div>
+                          <p class="mb-0" id="rate_star">
+                            @php
+                              for ($i=0; $i < $comment["rate"]; $i++) { 
+                                  echo '<span style="font-size:15px"><i class="fa fa-star text-warning" style="width:24px"></i></span>';
+                              }
+                              for ($i=0; $i < $comment["rate_remains"]; $i++) { echo '<span style="font-size:15px"><i class="fa fa-star" style="width:24px"></i></span>'; }
+                            @endphp
+                            {{-- <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-secondary"></i>
+                            <span class="list-inline-item text-dark">Rating 4.8 | {{$count_reviews}} Comments</span> --}}
+                          </p>
+                        </div>
+                        <div class="small" id="comment{{$comment['id']}}"><span>{{$comment["comment"]}}</span></div>
                         @if ($comment["user_id"] == Auth::id())
-                        <a href="#" class="btn btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#editModal" onclick="okee()">
+                        <a href="#" class="btn btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#editModal"
+                          onclick="setCommentId('{{$comment['id']}}')">
                           <i class="far fa-edit "></i>
                         </a>
                         @endif
@@ -93,14 +109,14 @@
           <div class="card-body">
             <h1 class="h2">{{$product->product_name}}</h1>
             <p class="h3 py-2">{{$product->product_price}}</p>
-            <p class="py-2">
+            {{-- <p class="py-2">
               <i class="fa fa-star text-warning"></i>
               <i class="fa fa-star text-warning"></i>
               <i class="fa fa-star text-warning"></i>
               <i class="fa fa-star text-warning"></i>
               <i class="fa fa-star text-secondary"></i>
               <span class="list-inline-item text-dark">Rating 4.8 | {{$count_reviews}} Comments</span>
-            </p>
+            </p> --}}
             <ul class="list-inline">
               <li class="list-inline-item">
                 <h6>UKM:</h6>
@@ -160,35 +176,36 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <form action="{{route('editCommentReview',$product->id)}}" method="POST">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Komen dan Rating</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <p class="pt-2 mb-0">
-                <i class="fa fa-star rating-star"></i>
-                <i class="fa fa-star rating-star"></i>
-                <i class="fa fa-star rating-star"></i>
-                <i class="fa fa-star rating-star"></i>
-                <i class="fa fa-star rating-star"></i>
-                <span id="rate-value">0</span>
-              </p>
-              @csrf
-              <input type="hidden" name="rate_value" id="rate-input">
-                                {{-- <input type="text" class="form-control " id="formGroupExampleInput2" name="review_value"
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Komen dan Rating</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <p class="pt-2 mb-0">
+                  <i class="fa fa-star rating-star"></i>
+                  <i class="fa fa-star rating-star"></i>
+                  <i class="fa fa-star rating-star"></i>
+                  <i class="fa fa-star rating-star"></i>
+                  <i class="fa fa-star rating-star"></i>
+                  <span id="rate-value">0</span>
+                </p>
+                @csrf
+                <input type="hidden" name="rate_value" id="rate-input">
+                {{-- <input type="text" class="form-control " id="formGroupExampleInput2" name="review_value"
                                   placeholder="Isikan pendapat anda tentang produk ini" value=""> --}}
-                              {{-- <button type="submit" class="btn btn-success"></button> --}} 
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Isikan pendapat anda tentang produk ini"
-                  aria-label="Isikan pendapat anda tentang produk ini" aria-describedby="button-addon2" , name="review_value">
-                <button class="btn btn-outline-success" type="submit" id="button-addon2"><i
-                    class="fab fa-telegram-plane"></i></button>
+                {{-- <button type="submit" class="btn btn-success"></button> --}}
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Isikan pendapat anda tentang produk ini"
+                    aria-label="Isikan pendapat anda tentang produk ini" aria-describedby="button-addon2"
+                    name="review_value">
+                  <button class="btn btn-outline-success" type="submit" id="button-addon2edit"><i
+                      class="fab fa-telegram-plane"></i></button>
+                </div>
               </div>
             </div>
-          </div>
-        </form> 
-        </div> 
+          </form>
+        </div>
         <input type="hidden" name="isEdit" id="isEdit">
       </div>
     </div>
@@ -196,6 +213,55 @@
 @endsection
 @section('script')
 <script>
+  var commentId = 0;
+  function setCommentId(ia){
+    commentId = ia;
+    $("input[name=isEdit]").val(ia);
+  commentId = $("input[name=isEdit]").val();
+  }
+  $("#button-addon2edit").click(function (e) {
+    e.preventDefault();
+    var review_value = $("input[name=review_value]").val();
+    var rate_value = $("input[name=rate_value]").val();
+    var url = "{{route('editCommentReview', ":commentId")}}"
+    url = url.replace(':commentId', commentId);
+    console.log(review_value);
+    console.log(rate_value);
+    $.ajax({
+            
+            type:'PATCH',
+            
+            url:url,
+            data:{review_value:review_value, rate_value:rate_value},
+            headers: {
+            'X-CSRF-TOKEN': $('input[name="_token"]').val()
+            },
+            success:function(data){
+            console.log(data);
+            // alert(data.success);
+            $("#comment"+commentId).html("<span>"+data.review_value+"</span>");
+            var star_data = data.rate_value;
+            var star_remain_data = 5 - data.rate_value;
+            var starElement = '';
+            for (let i = 0; i < star_data; i++) {
+              starElement     += '<span style="font-size:15px"><i class="fa fa-star text-warning" style="width:24px"></i></span>';         
+            }
+            for (let i = 0; i < star_remain_data; i++) { starElement
+              +='<span style="font-size:15px"><i class="fa fa-star" style="width:24px"></i></span>' ; }
+              $("#rate_star").html(starElement);
+            // window.location.reload(true);
+            $(".btn-close").click();
+           Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Review berhasil diedit',
+          showConfirmButton: false,
+          timer: 1500
+          })
+            },
+            
+            });
+  })
   var star = document.getElementsByClassName('rating-star');
       var rateValue = document.getElementById("rate-value");
       var rateInput = document.getElementById("rate-input");

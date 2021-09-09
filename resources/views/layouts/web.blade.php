@@ -1,4 +1,5 @@
 @include('slices.header')
+@include('sweetalert::alert')
 @include('slices.navbar')
 @include('slices.modal')
 @yield('content')

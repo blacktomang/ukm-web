@@ -4,6 +4,7 @@ namespace App\Http\Controllers\View;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Rate;
 use App\Models\Review;
 use App\Models\Store;
 use App\Models\User;
@@ -44,16 +45,19 @@ class ViewController extends Controller
             $temp_data["user_id"] = $reviews[$i]->user_id;
             $temp_data["user_name"] = User::find($reviews[$i]->user_id)->name;
             $temp_data["rate"] = $rates[$i]->value;
+            $temp_data["id"] = $rates[$i]->id;
             $temp_data["comment"] = $reviews[$i]->value;
+            $temp_data["rate_remains"] = 5 - $rates[$i]->value;
             $temp_data["time"] = $reviews[$i]->created_at->diffForHumans();
-            if (Auth::user()->id== $reviews[$i]->user_id) {
+            if (Auth::check() && Auth::user()->id== $reviews[$i]->user_id) {
                 array_unshift($comments, $temp_data);
             }else{
                 array_push($comments, $temp_data); 
             }
         }
+        // dd($comments);
         $product['product_price'] = Product::rupiah($product['product_price']);
-        return view('pages.product.index', compact('product', 'count_reviews', 'count_rates', 'stores', 'reviews', 'rates', 'comments'));
+        return view('pages.product.index', compact('product', 'count_reviews', 'count_rates', 'stores', 'reviews', 'rates', 'comments',));
     }
     public function about(){
         $stores = Store::all();
@@ -104,19 +108,27 @@ class ViewController extends Controller
     public function editCommentReview($id, Request $request)
     {
          try{
-             $product = Product::find($id);
-            $product->rates()->update([
-                'product_id' => $id,
+             $review = Review::find($id);
+             $rate = Rate::find($id);
+            //  dd($review);/
+             $product = $review->product->id;
+            //  dd($review);
+            //  dd($rate); 
+            $rate->update([
+                'product_id' => $product,
                 'user_id' => Auth::id(),
                 'value' => floatval($request->rate_value)
             ]);
-            $product->reviews()->update([
-                'product_id' => $id,
+            $review->update([
+                'product_id' => $product,
                 'user_id' => Auth::id(),
                 'value' => $request->review_value
             ]);
-            toast("Edit berhasil!", "success");
-            return redirect()->back();
+            return Array(
+                "rate_value" => $rate->value,
+                "review_value" => $review->value    );
+            // toast("Edit berhasil!", "success");
+            // return redirect()->back();
         } catch (\Throwable $th) {
           dd($th->getMessage());
             return redirect()->back();

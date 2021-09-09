@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{{asset('template/assets/css/fontawesome.min.css')}}">
   @yield('another-style-sheet')
   <link rel="stylesheet" href="{{asset('customs/custom.css')}}">
-
 </head>
 
 <body>
+  
