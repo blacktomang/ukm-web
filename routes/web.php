@@ -43,6 +43,8 @@ Route::prefix('/')->group(function () {
     Route::get('ukm-product/{id}', [ViewController::class, 'detailProduct']);
     Route::get('profil', [ViewController::class, 'profil']);
     Route::get('store/{id}', [ViewController::class, 'storeDetail']);
+    Route::post('komentReview/{id}', [ViewController::class, 'createReviewsRate'])->name('komentReview');
+    Route::post('editKomentReview/{id}', [ViewController::class, 'editCommentReview'])->name('editCommentReview');
 });
 
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {

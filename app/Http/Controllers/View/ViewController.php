@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Cast\Double;
 
 class ViewController extends Controller
 {
@@ -28,13 +31,29 @@ class ViewController extends Controller
     }
     public function detailProduct($id)
     {
+        // dd(Auth::user()->id);
         $product = Product::find($id);
-        // dd($product->product_image);
-        $reviews = count($product->reviews);
-        $stores = $product->stores; 
-        // dd($stores);
+        $rates = $product->rates;
+        $reviews = $product->reviews;
+        $stores = $product->stores;
+        $comments = [];
+        $count_reviews = count($reviews);
+        $count_rates = count($rates);
+        for ($i=0; $i < $count_reviews; $i++) {
+            $temp_data = [];
+            $temp_data["user_id"] = $reviews[$i]->user_id;
+            $temp_data["user_name"] = User::find($reviews[$i]->user_id)->name;
+            $temp_data["rate"] = $rates[$i]->value;
+            $temp_data["comment"] = $reviews[$i]->value;
+            $temp_data["time"] = $reviews[$i]->created_at->diffForHumans();
+            if (Auth::user()->id== $reviews[$i]->user_id) {
+                array_unshift($comments, $temp_data);
+            }else{
+                array_push($comments, $temp_data); 
+            }
+        }
         $product['product_price'] = Product::rupiah($product['product_price']);
-        return view('pages.product.index', compact('product', 'reviews', 'stores'));
+        return view('pages.product.index', compact('product', 'count_reviews', 'count_rates', 'stores', 'reviews', 'rates', 'comments'));
     }
     public function about(){
         $stores = Store::all();
@@ -49,8 +68,9 @@ class ViewController extends Controller
         $owner = $store->owner;
         $store_images = $store->storeImages;
         $other_stores = Store::where('id',!$id);
-
+        
         $review_counts = 0;
+
         for ($i=0; $i < count($products); $i++) {
             $reviews = Review::where('product_id', $products[$i]->id)->get();
             $review_counts += count($reviews);
@@ -59,5 +79,47 @@ class ViewController extends Controller
     }
     protected function countReviews(array $products){
 
+    }
+    public function createReviewsRate($id,Request $request){
+        try {
+            // dd(floatval($request->rate_value));
+            $product = Product::find($id);
+            $product->rates()->create([
+                'product_id' => $id,
+                'user_id' => Auth::id(),
+                'value' => floatval($request->rate_value)
+            ]);
+            $product->reviews()->create([
+                'product_id' => $id,
+                'user_id' => Auth::id(),
+                'value' => $request->review_value
+            ]);
+            toast("Terimakasih komennya!", "success");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+          dd($th->getMessage());
+            return redirect()->back();
+        }
+    } 
+    public function editCommentReview($id, Request $request)
+    {
+         try{
+             $product = Product::find($id);
+            $product->rates()->update([
+                'product_id' => $id,
+                'user_id' => Auth::id(),
+                'value' => floatval($request->rate_value)
+            ]);
+            $product->reviews()->update([
+                'product_id' => $id,
+                'user_id' => Auth::id(),
+                'value' => $request->review_value
+            ]);
+            toast("Edit berhasil!", "success");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+          dd($th->getMessage());
+            return redirect()->back();
+        }
     }
 }

@@ -132,7 +132,7 @@
             @foreach ($products as $product)
             <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100">
-                    <a @if (Auth::check()) href="ukm-product/{{$product->id}}" @else href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" @endif>
+                    <a  href="ukm-product/{{$product->id}}">
                         <img src="{{$product->product_image}}" class="card-img-top" alt="...">
                     </a>
                     <div class="card-body">
@@ -157,23 +157,6 @@
             @endforeach
         </div>
         <p class="text-center"><a class="btn btn-success">Lihat semua produk</a></p>
-    </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ooops!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Login dulu untuk melihat detail produk</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" onclick="window.location.replace('/login')">Login</button>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 @endsection
