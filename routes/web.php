@@ -45,6 +45,7 @@ Route::prefix('/')->group(function () {
     Route::get('store/{id}', [ViewController::class, 'storeDetail']);
     Route::post('komentReview/{id}', [ViewController::class, 'createReviewsRate'])->name('komentReview');
     Route::patch('editKomentReview/{id}', [ViewController::class, 'editCommentReview'])->name('editCommentReview');
+    Route::patch('addRateAndBuy/{id}', [ViewController::class, 'addRateAndBuy'])->name('addRateAndBuy');
 });
 
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {

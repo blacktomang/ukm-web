@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRatesTable extends Migration
+class AddRateToProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateRatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rates', function (Blueprint $table) {
-            $table->id();
-            $table->integer('product_id');
-            $table->integer('user_id');
-            $table->double('value', 10, 2);
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->double('rate', 10, 2)->after('description');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateRatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rates');
+        Schema::table('products', function (Blueprint $table) {
+            //
+        });
     }
 }

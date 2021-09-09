@@ -138,11 +138,21 @@
                     <div class="card-body">
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
-                                <i class="text-warning fa fa-star"></i>
+                                @if (is_double($product["rates"]))
+                                    @for ($i = 0; $i < $product["rates"]; $i++)
+                                        <i class="text-warning fa fa-star"></i>
+                                    @endfor
+                                    @for ($i = 0; $i < 5 - $product["rates"]; $i++) <i class="fa fa-star"></i>
+                                        @endfor
+                                @else
+                                    @for ($i = 0; $i < 5; $i++) <i class="fa fa-star"></i>
+                                    @endfor
+                                @endif
+                                {{-- <i class="text-warning fa fa-star"></i>
                                 <i class="text-warning fa fa-star"></i>
                                 <i class="text-warning fa fa-star"></i>
                                 <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i> --}}
                             </li>
                             <li class="text-muted text-right">{{$product->product_price}}</li>
                         </ul>

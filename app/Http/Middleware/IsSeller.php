@@ -24,11 +24,11 @@ class IsSeller
                 if ($user->hasRole("seller")) {
                     return $next($request);
                 }else{
-                    return redirect('/');
+                    return back();
                 }
                 // The user is logged in...
             }else{
-                return redirect('/');
+                return back();
             }
         
     }

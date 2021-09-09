@@ -74,17 +74,15 @@ class ProductController extends Controller
         $fileName = time() . $files->hashName();
         $files->move($this->pathImage, $fileName);
         try {
-            $check = Product::create([
+           Product::create([
                 'store_id'=> $request->store_id,
                 'product_name' => $request->product_name,
                 'product_price' => $request->product_price,
                 'description' => $request->description,
                 'stocks' => $request->stocks,
                 'product_image' => $this->pathImage. $fileName,
+                'rate' => 0.0
             ]);
-            // if ($check) {
-            //     # code...
-            // }
             toast('Penambahan data berhasil!', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
