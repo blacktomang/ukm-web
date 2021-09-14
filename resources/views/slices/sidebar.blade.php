@@ -5,13 +5,15 @@
    <aside id="sidebar-wrapper">
      <div class="sidebar-brand">
        <a href="/dashboard">UKM Bontolo</a>
-   
-      </div>
+
+     </div>
      <div class="sidebar-brand sidebar-brand-sm">
        <a href="index.html">UB</a>
      </div>
      <ul class="sidebar-menu">
-       <li class=" @if($paths=='dashboard') active @endif"><a class="nav-link" href="/dashboard"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+       <li class=" @if($paths=='dashboard'||$paths=='admin') active @endif"><a class="nav-link" href="/admi"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+       <li class=" @if($paths=='penggagas') active @endif"><a class="nav-link" href="/admin/initiators"><i
+            class="fas fa-fire"></i> <span>Penggagas Ukm</span></a></li>
        @hasrole('seller')
        <li class="@if($paths=='stores') active @endif"><a class="nav-link" href="/stores"><i class="fas fa-store"></i> <span>Profil UKM</span></a></li>
        <li class="@if($paths=='product') active @endif"><a class="nav-link" href="/product"><i class="fas fa-list-alt"></i><span>Produk</span></a></li>

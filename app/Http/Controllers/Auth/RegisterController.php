@@ -87,8 +87,7 @@ class RegisterController extends Controller
                 ]);
                 $user = Auth::attempt($credential);
                 $request->session()->regenerate();
-                return redirect()->route('stores.index');
-                // ->('pages.seller.index', compact('user'));
+                return redirect()->route('dashboard.index');
             }
 
         }else {

@@ -16,6 +16,25 @@ class ViewController extends Controller
 {
     public function home()
     {
+        $products =  Product::orderBy('rate', 'desc')->limit(5)->get();
+        for ($i = 0; $i < count($products); $i++) {
+            $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
+            $rates = 0;
+            $rate_model_count = 0;
+            $rate_data = $products[$i]->rates;
+            if (count($rate_data) > 0) {
+                for ($j = 0; $j < count($rate_data); $j++) {
+                    $rates += $rate_data[$j]->value;
+                    $rate_model_count += 1;
+                }
+                $products[$i]['rates'] = floor($rates / $rate_model_count);
+            }
+            $products[$i]['reviews'] = count($products[$i]->reviews);
+        }
+        return view('welcome', compact('products'));
+    }
+    public function product()
+    {
         $products =  Product::orderBy('rate', 'desc')->get();
         for ($i = 0; $i < count($products); $i++) {
             $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
@@ -31,16 +50,6 @@ class ViewController extends Controller
                 $products[$i]['rates'] = floor($rates / $rate_model_count);
                 # code...
             }
-            $products[$i]['reviews'] = count($products[$i]->reviews);
-        }
-        //    dd($products);
-        return view('welcome', compact('products'));
-    }
-    public function product()
-    {
-        $products =  Product::all();
-        for ($i = 0; $i < count($products); $i++) {
-            $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
             $products[$i]['reviews'] = count($products[$i]->reviews);
         }
         return view('products', compact('products'));

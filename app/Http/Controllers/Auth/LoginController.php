@@ -58,7 +58,23 @@ class LoginController extends Controller
             $user = User::find($id);
             // dd($user->roles[0]->name);
            $request->session()->regenerate();
-            return $user->hasRole("seller")?redirect()->intended("dashboard"):redirect()->intended('/');
+            // return $user->hasRole("seller")|| $user->hasRole("admin")?redirect()->intended("dashboard"):redirect()->intended('/');
+            // if ($user->hasRole("admin")) {
+            //    return redirect()->intended('/admin');
+            // } else if($user->hasRole("admin"){
+
+            //     return redirect()->intended('/admin');
+            // } else{
+
+            // }
+            if ($user->hasRole("admin")) {
+                return redirect()->intended('/admin');
+            } else if ($user->hasRole("seller")){
+                return redirect()->intended('dashboard');
+            } else {
+                return redirect()->intended('/');
+            }
+            
         }
         return back()->with('loginError', 'Login gagal!');
     }

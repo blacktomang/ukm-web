@@ -2,7 +2,7 @@
 @section('title', 'Seller Dashboard' )
 @section('content')
 <div class="section-body">
-  <h2 class="section-title">Selamat datang di @hasrole('seller') Seller @endhasrole @hasrole('admin') Amin @endhasrole Panel UKM TOMBOLO</h2>
+  <h2 class="section-title">Selamat datang di @hasrole('seller') Seller @endhasrole @hasrole('admin') Admin @endhasrole Panel UKM TOMBOLO</h2>
   <p class="section-lead">Anda login sebagai {{Auth::user()->name}}!</p>
   <div class="card">
     <div class="card-header">
@@ -14,7 +14,7 @@
         </div>
         <div class="d-flex flex-column justify-content-start ml-2">
           <!-- <div> -->
-          <p class="lead pb-0 mb-0 font-weight-bold text-primary">{{$products??''}}</p>
+          <p class="lead pb-0 mb-0 font-weight-bold text-primary">{{$products??'0'}}</p>
           <!-- </div> -->
           <div>Produk</div>
         </div>
@@ -22,24 +22,24 @@
       @hasrole('admin')
       <div class="d-flex align-items-center ">
         <div class="rounded-circle bg-primary p-2">
-          <i style="font-size: 25px;" class="fas fa-people text-white"></i>
+          <i style="font-size: 25px;"  class="fas fa-users text-white"></i>
         </div>
         <div class="d-flex flex-column justify-content-start ml-2">
           <div>
-            <p class="lead pb-0 mb-0 font-weight-bold text-primary"><?= $user ?></p>
+            <p class="lead pb-0 mb-0 font-weight-bold text-primary">{{$users??'0'}}</p>
           </div>
           <div>User</div>
         </div>
       </div>
       <div class="d-flex align-items-center ">
         <div class="rounded-circle bg-primary p-2">
-          <i style="font-size: 25px;" class="fas fa-comments text-white"></i>
+          <i style="font-size: 25px;" class="fas fa-store text-white"></i>
         </div>
         <div class="d-flex flex-column justify-content-start ml-2">
           <div>
-            <p class="lead pb-0 mb-0 font-weight-bold text-primary"><?= $user ?></p>
+            <p class="lead pb-0 mb-0 font-weight-bold text-primary">{{$stores??'0'}}</p>
           </div>
-          <div>Memo</div>
+          <div>Ukm</div>
         </div>
       </div>
       @else

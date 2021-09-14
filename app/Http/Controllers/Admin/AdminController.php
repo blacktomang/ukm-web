@@ -15,8 +15,9 @@ class AdminController extends Controller
     public function index(){
         $users = count(User::all());
         $stores = count(Store::all());
+        $products = count(Product::all());
 
-        return view('pages.seller.dashboard', compact('users', 'stores'));
+        return view('pages.seller.dashboard', compact('users', 'stores', 'products'));
     }
     public function users()
     {

@@ -166,7 +166,7 @@
             </div>
             @endforeach
         </div>
-        <p class="text-center"><a class="btn btn-success">Lihat semua produk</a></p>
+        <p class="text-center"><a class="btn btn-success" href="/ukm-products">Lihat semua produk</a></p>
     </div>
 </section>
 @endsection

@@ -17,32 +17,30 @@
     @foreach ($products as $product)
     <div class="col-12 col-md-4 mb-4">
       <div class="card h-100">
-        <a @if (Auth::check())
-        href="ukm-product/{{$product->id}}"
-            
-        @else
-          href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal"
-        @endif 
-        >
+        <a href="ukm-product/{{$product->id}}">
           <img src="{{$product->product_image}}" class="card-img-top" alt="...">
         </a>
         <div class="card-body">
           <ul class="list-unstyled d-flex justify-content-between">
             <li>
-              <i class="text-warning fa fa-star"></i>
-              <i class="text-warning fa fa-star"></i>
-              <i class="text-warning fa fa-star"></i>
-              <i class="text-muted fa fa-star"></i>
-              <i class="text-muted fa fa-star"></i>
+              @if (is_double($product["rates"]))
+              @for ($i = 0; $i < $product["rates"]; $i++) <i class="text-warning fa fa-star"></i>
+                @endfor
+                @for ($i = 0; $i < 5 - $product["rates"]; $i++) <i class="fa fa-star"></i>
+                  @endfor
+                  @else
+                  @for ($i = 0; $i < 5; $i++) <i class="fa fa-star"></i>
+                    @endfor
+                    @endif
+                    {{-- <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i> --}}
             </li>
             <li class="text-muted text-right">{{$product->product_price}}</li>
           </ul>
-          <a @if (Auth::check())
-        href="ukm-product/{{$product->id}}"
-            
-        @else
-          href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal"
-        @endif class="h2 text-decoration-none text-dark">{{$product->product_name}}</a>
+          <a @if (Auth::check()) href="ukm-product/{{$product->id}}" @else href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" @endif class="h2 text-decoration-none text-dark">{{$product->product_name}}</a>
           <p class="card-text">
             {{$product->description}}
           </p>
@@ -52,7 +50,7 @@
     </div>
     @endforeach
   </div>
-  <p class="text-center"><a class="btn btn-success">Lihat semua produk</a></p>
+  <!-- <p class="text-center"><a class="btn btn-success">Lihat semua produk</a></p> -->
 </section>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -63,7 +61,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <p>Login dulu untuk melihat detail produk</p>
+        <p>Login dulu untuk melihat detail produk</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
