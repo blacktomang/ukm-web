@@ -88,9 +88,7 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             File::delete($this->pathImage. $fileName);
             toast($th->getMessage(), 'error');
-            dd($th->getMessage());
             return redirect()->back();
-          dd($th);
         }
     }
 

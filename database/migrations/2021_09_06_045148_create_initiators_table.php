@@ -15,6 +15,9 @@ class CreateInitiatorsTable extends Migration
     {
         Schema::create('initiators', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('quote');
+            $table->string('photo');
             $table->timestamps();
         });
     }

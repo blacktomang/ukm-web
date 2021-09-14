@@ -36,6 +36,19 @@
          </li>
        </ul>
        @endhasrole
+       @hasrole('admin')
+       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+         <li class="nav-item">
+           <a class="nav-link active" aria-current="page" href="#">Profil</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="/admin">Dashboard Admin</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="#product" onClick="event.preventDefault(); document.getElementById('form-logout').submit()">Logout</a>
+         </li>
+       </ul>
+       @endhasrole
        @hasrole('buyer')
        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
          <li class="nav-item">
