@@ -21,13 +21,16 @@ class AdminController extends Controller
     }
     public function users()
     {
-        $users = User::all();
-        return view('pages.admin.dashboard', compact('users'));
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'admin');
+        })->with('roles')->paginate(10);
+        // dd($users);
+        return view('pages.admin.users', compact('users'));
     }
 
     public function products()
     {
-        $products = Product::all();
+        $products = Product::paginate(10);
         return view('pages.admin.products', compact('products'));
     }
 }

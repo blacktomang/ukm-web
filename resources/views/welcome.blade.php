@@ -88,29 +88,21 @@
     <div class="row text-center pt-3">
         <div class="col-lg-6 m-auto">
             <h1 class="h1">Penggagas UKM Desa Tombolo</h1>
-            <p>
+            {{-- <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus perspiciatis
                 magni
                 dolorem veritatis dolor quisquam molestias sed incidunt voluptate sapiente.
-            </p>
+            </p> --}}
         </div>
     </div>
     <div class="row">
+        @foreach ($initiators as $initiator)
         <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#"><img src="{{asset('template/assets/img/category_img_01.jpg')}}" class="rounded-circle img-fluid border"></a>
-            <h5 class="text-center mt-3 mb-3">Watches</h5>
-            <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas velit par.</p>
+            <a href="#"><img src="{{$initiator->photo}}" class="rounded-circle img-fluid border"></a>
+            <h5 class="text-center mt-3 mb-3">{{$initiator->name}}</h5>
+            <p class="text-center">{{$initiator->quote}}.</p>
         </div>
-        <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#"><img src="{{asset('template/assets/img/category_img_02.jpg')}}" class="rounded-circle img-fluid border"></a>
-            <h2 class="h5 text-center mt-3 mb-3">Shoes</h2>
-            <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, laudantium!</p>
-        </div>
-        <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#"><img src="{{asset('template/assets/img/category_img_03.jpg')}}" class="rounded-circle img-fluid border"></a>
-            <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-            <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, laudantium?</p>
-        </div>
+        @endforeach
     </div>
 </section>
 <!-- End Categories of The Month -->

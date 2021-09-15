@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\View;
 
 use App\Http\Controllers\Controller;
+use App\Models\Initiator;
 use App\Models\Product;
 use App\Models\Rate;
 use App\Models\Review;
@@ -16,6 +17,7 @@ class ViewController extends Controller
 {
     public function home()
     {
+        $initiators = Initiator::all();
         $products =  Product::orderBy('rate', 'desc')->limit(5)->get();
         for ($i = 0; $i < count($products); $i++) {
             $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
@@ -31,7 +33,7 @@ class ViewController extends Controller
             }
             $products[$i]['reviews'] = count($products[$i]->reviews);
         }
-        return view('welcome', compact('products'));
+        return view('welcome', compact('products', 'initiators'));
     }
     public function product()
     {

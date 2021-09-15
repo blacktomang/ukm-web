@@ -17,8 +17,8 @@ class InitiatorController extends Controller
      */
     public function index()
     {
-        $initiators = Initiator::all();
-        return view('pages.admin.index', compact('initiators'));
+        $initiators = Initiator::paginate(5);
+        return view('pages.admin.pengagas.index', compact('initiators'));
     }
 
     /**
@@ -71,7 +71,8 @@ class InitiatorController extends Controller
      */
     public function show($id)
     {
-        //
+        $initiator =  Initiator::find($id);
+        return $initiator;
     }
 
     /**
@@ -82,7 +83,6 @@ class InitiatorController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -94,7 +94,45 @@ class InitiatorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required',
+                'quote' => 'required',
+                // 'photo' => 'required'
+            ]);
+
+            $name = $request->name;
+            $quote = $request->quote;
+
+
+            $initiator = Initiator::find($id);
+            if ($request->file('photo')) {
+                File::delete($initiator->photo);
+
+                $files = $request->file('photo');
+
+                $fileName = time() . $files->hashName();
+                $files->move(public_path($this->pathImage), $fileName);
+
+                $initiator->update([
+                    'name' =>  $name,
+                    'quote' =>  $quote,
+                    'photo' => $this->pathImage . $fileName
+                ]);
+                toast("Data $initiator->name berhasil diupdate", "success");
+                return redirect('/product');
+            }
+            $initiator->update([
+                'name' =>  $name,
+                'quote' =>  $quote,
+            ]);
+            toast("Data $initiator->name berhasil diupdate", "success");
+            return redirect('/product');
+            //code...
+        } catch (\Throwable $th) {
+            toast("Terjadi kesalahan saat mengupdate data $initiator->name", "error");
+            return back();
+        }
     }
 
     /**
@@ -113,7 +151,7 @@ class InitiatorController extends Controller
             toast("Data $initiator->name berhasil dihapus", 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
-            toast("Terjadi kesalahan saat menghapus produk $initiator->product_name", "error");
+            toast("Terjadi kesalahan saat menghapus produk $initiator->name", "error");
             return
                 redirect()->back();
         }
