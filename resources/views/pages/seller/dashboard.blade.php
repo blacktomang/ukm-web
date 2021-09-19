@@ -1,5 +1,10 @@
 @extends('layouts.seller')
+@hasrole('admin')
+@section('title', 'Admin Dashboard' )
+@endhasrole
+@hasrole('seller')
 @section('title', 'Seller Dashboard' )
+@endhasrole
 @section('content')
 <div class="section-body">
   <h2 class="section-title">Selamat datang di @hasrole('seller') Seller @endhasrole @hasrole('admin') Admin @endhasrole Panel UKM TOMBOLO</h2>
@@ -22,7 +27,7 @@
       @hasrole('admin')
       <div class="d-flex align-items-center ">
         <div class="rounded-circle bg-primary p-2">
-          <i style="font-size: 25px;"  class="fas fa-users text-white"></i>
+          <i style="font-size: 25px;" class="fas fa-users text-white"></i>
         </div>
         <div class="d-flex flex-column justify-content-start ml-2">
           <div>

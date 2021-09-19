@@ -146,8 +146,8 @@
   var index = 0;
 
   function setIndex(id) {
-    index = id;
-    console.log(index);
+    // index = id;
+    // console.log(index);
     var url = "{{route('initiators.show', ":id ")}}";
     url = url.replace(":id", id);
     $.ajax({

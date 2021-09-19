@@ -52,6 +52,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::get('', [AdminController::class, 'index']);
     Route::get('users', [AdminController::class, 'users']);
     Route::get('products', [AdminController::class, 'products']);
+    Route::get('stores', [AdminController::class, 'stores']);
     Route::resource('initiators', InitiatorController::class);
     Route::resource('banners', WebBannerController::class);
 });

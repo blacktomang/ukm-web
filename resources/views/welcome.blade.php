@@ -140,11 +140,6 @@
                                     @for ($i = 0; $i < 5; $i++) <i class="fa fa-star"></i>
                                     @endfor
                                 @endif
-                                {{-- <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i> --}}
                             </li>
                             <li class="text-muted text-right">{{$product->product_price}}</li>
                         </ul>
