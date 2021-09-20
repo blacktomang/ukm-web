@@ -13,9 +13,9 @@
     return new bootstrap.Tooltip(tooltipTriggerEl)
   });
 </script>
-@yield('script')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@yield('script')
 </body>
 
 </html>

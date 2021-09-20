@@ -9,6 +9,7 @@ use App\Models\Rate;
 use App\Models\Review;
 use App\Models\Store;
 use App\Models\User;
+use App\Models\WebBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\Cast\Double;
@@ -18,6 +19,7 @@ class ViewController extends Controller
     public function home()
     {
         $initiators = Initiator::all();
+        $web_banners = WebBanner::all();
         $products =  Product::orderBy('rate', 'desc')->limit(5)->get();
         for ($i = 0; $i < count($products); $i++) {
             $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
@@ -33,7 +35,7 @@ class ViewController extends Controller
             }
             $products[$i]['reviews'] = count($products[$i]->reviews);
         }
-        return view('welcome', compact('products', 'initiators'));
+        return view('welcome', compact('products', 'initiators', 'web_banners'));
     }
     public function product()
     {
@@ -74,7 +76,7 @@ class ViewController extends Controller
             $temp_data["user_id"] = $reviews[$i]->user_id;
             $temp_data["user_name"] = User::find($reviews[$i]->user_id)->name;
             $temp_data["rate"] = $rates[$i]->value;
-            $temp_data["id"] = $rates[$i]->id;
+            $temp_data["id"] = $id;
             $temp_data["comment"] = $reviews[$i]->value;
             $temp_data["rate_remains"] = 5 - $rates[$i]->value;
             $temp_data["time"] = $reviews[$i]->created_at->diffForHumans();
@@ -118,11 +120,31 @@ class ViewController extends Controller
     public function createReviewsRate($id, Request $request)
     {
         try {
-            // dd(floatval($request->rate_value));
             $product = Product::find($id);
-            $product->update([
-                'rate' => $product->rate += 0.3,
-            ]);
+            $prevRate = $product->rates;
+            if (count($prevRate)==0) {
+                $product->rates()->create([
+                    'product_id' => $id,
+                    'user_id' => Auth::id(),
+                    'value' => floatval($request->rate_value)
+                ]);
+                $product->reviews()->create([
+                    'product_id' => $id,
+                    'user_id' => Auth::id(),
+                    'value' => $request->review_value
+                ]);
+                $product->update([
+                    'rate' =>$product->rate + floatval($request->rate_value),
+                ]);
+                toast("Terimakasih atas reviewnya!", "success");
+                return redirect()->back();
+            }
+            $prevTotal = 0;
+            for ($i = 0; $i < count($prevRate); $i++) {
+                $prevTotal += $prevRate[$i]->value;
+            }
+            $prevAverage = $prevTotal / count($prevRate);
+            $valueNotFromUserRate = floatval($product->rate - $prevAverage);
             $product->rates()->create([
                 'product_id' => $id,
                 'user_id' => Auth::id(),
@@ -133,7 +155,18 @@ class ViewController extends Controller
                 'user_id' => Auth::id(),
                 'value' => $request->review_value
             ]);
-            toast("Terimakasih komennya!", "success");
+            $updatedProduct = Product::find($id);
+            $rate_product = $updatedProduct->rates;
+            $total_rate = 0;
+            for ($i=0; $i < count($rate_product); $i++) {
+                $total_rate+=$rate_product[$i]->value;
+            }
+            $newAverage = $total_rate / count($rate_product);
+            $newRate = $newAverage + $valueNotFromUserRate;
+            $product->update([
+                'rate' => $newRate,
+            ]);
+            toast("Terimakasih atas reviewnya!", "success");
             return redirect()->back();
         } catch (\Throwable $th) {
             dd($th->getMessage());
@@ -143,33 +176,51 @@ class ViewController extends Controller
     public function editCommentReview($id, Request $request)
     {
         try {
-            $review = Review::find($id);
-            $rate = Rate::find($id);
-            //  dd($review);/
-            $product = $review->product->id;
-            //  dd($review);
-            //  dd($rate); 
+            $prevProduct = Product::find($id);
+            $prevRate = $prevProduct->rates;
+            $prevTotal = 0;
+            for ($i=0; $i < count($prevRate); $i++) {
+                $prevTotal += $prevRate[$i]->value;
+            }
+            $prevAverage = $prevTotal / count($prevRate);
+            $valueNotFromUserRate = floatval($prevProduct->rate - $prevAverage); //separate value from user click etc
+            $review = Review::where(['product_id'=> intval($id),'user_id'=> Auth::user()->id])->first();
+            $rate = Rate::where(['product_id' => intval($id), 'user_id' => Auth::user()->id])->first();
             $rate->update([
-                'product_id' => $product,
-                'user_id' => Auth::id(),
                 'value' => floatval($request->rate_value)
             ]);
             $review->update([
-                'product_id' => $product,
-                'user_id' => Auth::id(),
                 'value' => $request->review_value
             ]);
+
+            $product= $rate->product;
+            $rates = $product->rates;
+            $total_rate = 0;
+            for ($i = 0; $i < count($rates); $i++) {
+                $total_rate += $rates[$i]->value;
+            }
+            $average = $total_rate / count($rates);
+            $newRate = $average +  $valueNotFromUserRate;
+           $hmm = $prevProduct->update([
+                'rate' =>$newRate,
+            ]);
+            // toast("Edit berhasil!", "success");
             return array(
                 "rate_value" => $rate->value,
-                "review_value" => $review->value
+                "review_value" => $review->value,
+                "resut" => $hmm
             );
-            // toast("Edit berhasil!", "success");
             // return redirect()->back();
         } catch (\Throwable $th) {
             dd($th->getMessage());
             return redirect()->back();
         }
     }
+
+    private function updateRateYoo($id, $rate_before){
+        $product = Product::find($id);
+    }
+
     public function addRateAndBuy($id, Request $request)
     {
         $store_name = $request->store_name;

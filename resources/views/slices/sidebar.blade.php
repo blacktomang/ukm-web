@@ -4,13 +4,14 @@
  <div class="main-sidebar">
    <aside id="sidebar-wrapper">
      <div class="sidebar-brand">
-       <a href="/dashboard">UKM Bontolo</a>
+       <a href="/dashboard">UKM Tombolo</a>
      </div>
      <div class="sidebar-brand sidebar-brand-sm">
-       <a href="index.html">UB</a>
+       <a href="index.html">UT</a>
      </div>
      <ul class="sidebar-menu">
        <li class=" @if($paths=='dashboard'||$paths=='admin') active @endif"><a class="nav-link" href="/admin"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+       <li class="@if($paths=='admin/banners') active @endif"><a class="nav-link" href="/admin/banners"><i class="fas fa-images"></i><span>Web Banner</span></a></li>
        <li class=" @if($paths=='admin/initiators') active @endif"><a class="nav-link" href="/admin/initiators"><i class="fas fa-fire-alt"></i><span>Penggagas Ukm</span></a></li>
        <li class=" @if($paths=='admin/users') active @endif"><a class="nav-link" href="/admin/users"><i class="fas fa-users"></i><span>Users</span></a></li>
        <li class=" @if($paths=='admin/stores') active @endif"><a class="nav-link" href="/admin/stores"><i class="fas fa-store"></i><span>Ukm</span></a></li>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRateToProducts extends Migration
+class AddDescriptionToWebBannersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddRateToProducts extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            // $table->double('rate', 10, 2)->after('description');
+        Schema::table('web_banners', function (Blueprint $table) {
+           $table->string('description');
         });
     }
 
@@ -25,7 +25,7 @@ class AddRateToProducts extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('web_banners', function (Blueprint $table) {
             //
         });
     }

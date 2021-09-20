@@ -10,15 +10,16 @@ class Rate extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'product_id',
         'user_id',
         'value'
     ];
 
     public function product(){
-        $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
     public function user(){
-        $this->hasOne(User::class);
+       return  $this->hasOne(User::class);
     }
 }
