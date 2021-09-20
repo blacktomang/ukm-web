@@ -38,8 +38,24 @@ class ProductController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
-        $products = Product::all();
         $store_data = $user->stores;
+        $products = Product::paginate(10);
+        for ($i = 0; $i < count($products); $i++) {
+            // $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
+            $rates = 0;
+            $rate_model_count = 0;
+            $rate_data = $products[$i]->rates;
+            //    dd($rate_data[$i]->value);
+            if (count($rate_data) > 0) {
+                for ($j = 0; $j < count($rate_data); $j++) {
+                    $rates += $rate_data[$j]->value;
+                    $rate_model_count += 1;
+                }
+                $products[$i]['rates'] = floor($rates / $rate_model_count);
+                # code...
+            }
+            $products[$i]['reviews'] = count($products[$i]->reviews);
+        }
        return view('pages.seller.product', compact('products', 'store_data'));
     }
 

@@ -270,7 +270,6 @@ window.onload =()=>{
   var rateInput = document.getElementById("rate-input");
 
   star[0].addEventListener("click", function() {
-    alert(star);
     reset();
     for (let i = 0; i < 1; i++) {
       if (star[i].classList.contains('text-warning')) {

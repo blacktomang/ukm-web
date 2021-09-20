@@ -23,6 +23,7 @@
               <th>Deskripsi</th>
               <th>Stok</th>
               <th>Gambar Produk</th>
+              <th>Rate</th>
               <th>Aksi</th>
             </tr>
             @foreach ($products as $key => $product)
@@ -34,6 +35,21 @@
               <td>{{$product->stocks}}</td>
               <td><img src="{{$product->product_image}}" alt="" srcset="" width="50px" height="30px"></td>
               <td>
+                <ul class="list-unstyled d-flex justify-content-between">
+                  <li>
+                    @if (is_double($product["rates"]))
+                    @for ($i = 0; $i < $product["rates"]; $i++) <i class="text-warning fa fa-star"></i>
+                      @endfor
+                      @for ($i = 0; $i < 5 - $product["rates"]; $i++) <i class="fa fa-star"></i>
+                        @endfor
+                        @else
+                        @for ($i = 0; $i < 5; $i++) <i class="fa fa-star"></i>
+                          @endfor
+                          @endif
+                  </li>
+                </ul>
+              </td>
+              <td>
                 <div class="d-flex justify-content-evenly">
                   <a href="#" onclick="event.preventDefault(); document.getElementById('delete-product').submit();" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
                   <form id="delete-product" action="{{route('product.destroy',$product->id)}}" method="POST">
@@ -43,6 +59,7 @@
                   <a href="{{route('product.edit', $product->id)}}" class="btn btn-warning" id="editInbox{{$key}}"><i class="far fa-edit"></i></a>
                 </div>
               </td>
+
             </tr>
             @endforeach
           </tbody>

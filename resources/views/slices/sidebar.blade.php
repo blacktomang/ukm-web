@@ -11,11 +11,13 @@
      </div>
      <ul class="sidebar-menu">
        <li class=" @if($paths=='dashboard'||$paths=='admin') active @endif"><a class="nav-link" href="/admin"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+       @hasrole('admin')
        <li class="@if($paths=='admin/banners') active @endif"><a class="nav-link" href="/admin/banners"><i class="fas fa-images"></i><span>Web Banner</span></a></li>
        <li class=" @if($paths=='admin/initiators') active @endif"><a class="nav-link" href="/admin/initiators"><i class="fas fa-fire-alt"></i><span>Penggagas Ukm</span></a></li>
        <li class=" @if($paths=='admin/users') active @endif"><a class="nav-link" href="/admin/users"><i class="fas fa-users"></i><span>Users</span></a></li>
        <li class=" @if($paths=='admin/stores') active @endif"><a class="nav-link" href="/admin/stores"><i class="fas fa-store"></i><span>Ukm</span></a></li>
        <li class="@if($paths=='admin/products') active @endif"><a class="nav-link" href="/admin/products"><i class="fas fa-list-alt"></i><span>Produk</span></a></li>
+       @endhasrole
        @hasrole('seller')
        <li class="@if($paths=='stores') active @endif"><a class="nav-link" href="/stores"><i class="fas fa-store"></i> <span>Profil UKM</span></a></li>
        <li class="@if($paths=='product') active @endif"><a class="nav-link" href="/product"><i class="fas fa-list-alt"></i><span>Produk</span></a></li>
