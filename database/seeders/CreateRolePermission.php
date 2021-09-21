@@ -20,29 +20,30 @@ class CreateRolePermission extends Seeder
     {
         // Reset cached roles and permissions
         // app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
-        // // create permissions
-        // Permission::create(['name' => 'register']);
-        // Permission::create(['name' => 'add products']);
-        // Permission::create(['name' => 'edit products']);
-        // Permission::create(['name' => 'delete products']);
-        // Permission::create(['name' => 'get user list']);
-
-        // // create roles and assign existing permissions
-        // $role1 = Role::create(['name' => 'admin']);
-        // $role1->givePermissionTo('get user list');
-        // // $role1->givePermissionTo('delete articles');
-
-        // $role2 = Role::create(['name' => 'seller']);
-        // $role2->givePermissionTo('add products');
-        // $role2->givePermissionTo('add products');
-        // $role2->givePermissionTo('edit products');
-        // $role2->givePermissionTo('register');
-
-
+        
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
+        // create permissions
+        Permission::create(['name' => 'register']);
+        Permission::create(['name' => 'add products']);
+        Permission::create(['name' => 'edit products']);
+        Permission::create(['name' => 'delete products']);
+        Permission::create(['name' => 'get user list']);
 
-        $spatieRole = Role::where('name', '=', 'admin')->first();
+        // create roles and assign existing permissions
+        $role1 = Role::create(['name' => 'admin']);
+        $role1->givePermissionTo('get user list');
+        // $role1->givePermissionTo('delete articles');
+
+        $role2 = Role::create(['name' => 'seller']);
+        $role2->givePermissionTo('add products');
+        $role2->givePermissionTo('add products');
+        $role2->givePermissionTo('edit products');
+        $role2->givePermissionTo('register');
+        
+        $role3 = Role::create(['name' => 'buyer']);
+
+
+        // $spatieRole = Role::where('name', '=', 'admin')->first();
         $user = User::create([
             'name' => 'admin',
             'username' => 'admin_ukm_',
@@ -52,9 +53,17 @@ class CreateRolePermission extends Seeder
             'address' => 'Desa tombolo'
         ]);
 
-        $user->assignRole($spatieRole);
+        // $user = User::create([
+        //     'name' => 'seller',
+        //     'username' => 'seller1',
+        //     'email' =>   'admin@ukm.co.id',
+        //     'phoneNumber' => '0812345678',
+        //     'password' => Hash::make('admin.ukm.092021'),
+        //     'address' => 'Desa tombolo'
+        // ]);
 
-        // $role3 = Role::create(['name' => 'buyer']);
+        $user->assignRole($role1);
+
         // $role3->givePermissionTo('register');
 
         // // gets all permissions via Gate::before rule; see AuthServiceProvider

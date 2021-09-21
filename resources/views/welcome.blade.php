@@ -2,13 +2,35 @@
 @extends('layouts.web')
 @section('content')
 <!-- Start Banner Hero -->
+
 <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
     </ol>
+    @if (count($web_banners)==0)
+    
     <div class="carousel-inner">
+        <div class="carousel-item  active">
+                  <div class="container">
+                      <div class="row p-5">
+                          <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                              <img class="img-fluid" src="{{asset('template/assets/img/banner_img_02.jpg')}}" alt="">
+                          </div>
+                          <div class="col-lg-6 mb-0 d-flex align-items-center">
+                              <div class="text-align-left align-self-center">
+                                  <h1 class="h1 text-success"><b>Dummi</b></h1>
+                                  <h3 class="h2">Dummy Sub Judulu</h3>
+                                  <p>
+                                     Belum ada Data
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          @else
         @foreach ($web_banners as $index_banner => $web_banner)
         <div class="carousel-item @if($index_banner==0) active @endif">
             <div class="container">
@@ -29,6 +51,7 @@
             </div>
         </div>        
         @endforeach
+        @endif
         <!-- <div class="carousel-item">
             <div class="container">
                 <div class="row p-5">

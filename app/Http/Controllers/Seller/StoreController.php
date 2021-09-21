@@ -66,7 +66,7 @@ class StoreController extends Controller
             // 'images' => $request->filenames ,
        ]);
         app('App\Http\Controllers\Seller\StoreImageController')->store($request->filenames, $store->id, $request->nib);
-        return redirect('/dahboard');
+        return view('pages.seller.dashboard');
     }
 
     /**

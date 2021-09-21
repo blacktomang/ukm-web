@@ -14,7 +14,7 @@ class AddRateToProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            // $table->double('rate', 10, 2)->after('description');
+            $table->double('rate', 10, 2)->after('description');
         });
     }
 

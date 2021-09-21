@@ -13,7 +13,10 @@ class AdminController extends Controller
 
 
     public function index(){
-        $users = count(User::all());
+        $userss = User::whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'admin');
+        })->with('roles')->get();
+        $users = count($userss);
         $stores = count(Store::all());
         $products = count(Product::all());
 
