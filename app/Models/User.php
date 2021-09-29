@@ -45,4 +45,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     public function stores()
+    {
+        if($this->hasRole('seller')){
+            return $this->hasOne(Store::class);
+        }else{
+            return 0;
+        }
+        
+    }
+    
 }

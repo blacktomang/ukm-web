@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,8 +54,27 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
         if (Auth::attempt($credential)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/');
+            $id = Auth::user()->id;
+            $user = User::find($id);
+            // dd($user->roles[0]->name);
+           $request->session()->regenerate();
+            // return $user->hasRole("seller")|| $user->hasRole("admin")?redirect()->intended("dashboard"):redirect()->intended('/');
+            // if ($user->hasRole("admin")) {
+            //    return redirect()->intended('/admin');
+            // } else if($user->hasRole("admin"){
+
+            //     return redirect()->intended('/admin');
+            // } else{
+
+            // }
+            if ($user->hasRole("admin")) {
+                return redirect()->intended('/admin');
+            } else if ($user->hasRole("seller")){
+                return redirect()->intended('dashboard');
+            } else {
+                return redirect()->intended('/');
+            }
+            
         }
         return back()->with('loginError', 'Login gagal!');
     }
@@ -65,9 +85,9 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    private function show($id)
     {
-        //
+        return User::find($id)->first();
     }
 
     /**

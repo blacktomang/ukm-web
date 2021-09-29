@@ -20,9 +20,9 @@
 }
 .card{
   box-shadow:0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  transition: all 0.5 ease-in;
+  transition: all 0.5s ease-in;
   border-radius: 1rem;
-  margin-top:2rem;
+  margin-top:1rem;
   cursor: pointer;
 }
 .card:hover{

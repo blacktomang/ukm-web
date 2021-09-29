@@ -1,113 +1,181 @@
 @section('title', 'Beranda' )
-@extends('slices.wrapper')
+@extends('layouts.web')
 @section('content')
-@include('slices.navbar')
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+<!-- Start Banner Hero -->
+
+<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+    </ol>
+    @if (count($web_banners)==0)
+    
     <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="2000">
-            <img src="{{asset('dummy/index.jpeg')}}" class="d-block w-100 h-100" alt="slide 1">
+        <div class="carousel-item  active">
+                  <div class="container">
+                      <div class="row p-5">
+                          <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                              <img class="img-fluid" src="{{asset('template/assets/img/banner_img_02.jpg')}}" alt="">
+                          </div>
+                          <div class="col-lg-6 mb-0 d-flex align-items-center">
+                              <div class="text-align-left align-self-center">
+                                  <h1 class="h1 text-success"><b>Dummi</b></h1>
+                                  <h3 class="h2">Dummy Sub Judulu</h3>
+                                  <p>
+                                     Belum ada Data
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          @else
+        @foreach ($web_banners as $index_banner => $web_banner)
+        <div class="carousel-item @if($index_banner==0) active @endif">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{$web_banner->image}}" alt="">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left align-self-center">
+                            <h1 class="h1 text-success"><b>{{$web_banner->title??""}}</b></h1>
+                            <h3 class="h2">{{$web_banner->sub_title??""}}</h3>
+                            <p>
+                               {{$web_banner->description??""}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        @endforeach
+        @endif
+        <!-- <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{asset('template/assets/img/banner_img_02.jpg')}}" alt="">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1">Proident occaecat</h1>
+                            <h3 class="h2">Aliquip ex ea commodo consequat</h3>
+                            <p>
+                                You are permitted to use this Zay CSS template for your commercial websites.
+                                You are <strong>not permitted</strong> to re-distribute the template ZIP file in any
+                                kind of template collection websites.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="{{asset('dummy/index1.jpeg')}}" class="d-block w-100 h-100" alt="slide 2">
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="{{asset('dummy/index2.jpeg')}}" class="d-block w-100 h-100" alt="slide 3">
-        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{asset('template/assets/img/banner_img_03.jpg')}}" alt="">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1">Repr in voluptate</h1>
+                            <h3 class="h2">Ullamco laboris nisi ut </h3>
+                            <p>
+                                We bring you 100% free CSS templates for your websites.
+                                If you wish to support TemplateMo, please make a small contribution via PayPal or tell
+                                your friends about our website. Thank you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+    @if (count($web_banners)>1)
+    <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+        <i class="fas fa-chevron-right"></i>
+    </a>
+    @endif
 </div>
-<div class="container d-flex flex-column align-items-center mt-5">
-    <div class="d-flex flex-column align-items-center">
-        <h2>Penggagas UKM Desa Tombolo</h2>
-        <p class="text-center w-75">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus perspiciatis magni
-            dolorem veritatis dolor quisquam molestias sed incidunt voluptate sapiente.</p>
+<!-- End Banner Hero -->
+
+
+<!-- Start Categories of The Month -->
+<section class="container py-5">
+    <div class="row text-center pt-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Penggagas UKM Desa Tombolo</h1>
+            {{-- <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus perspiciatis
+                magni
+                dolorem veritatis dolor quisquam molestias sed incidunt voluptate sapiente.
+            </p> --}}
+        </div>
     </div>
     <div class="row">
-        <div class="col-lg">
-            <div class="text-center card  border-0 flex-column d-flex align-items-center">
-                <img src="{{asset('dummy/avatar.png')}}" alt="" height="70px" width="70px">
-                <p class="qoute">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas velit pariatur
-                    obcaecati perferendis! Aliquid, corporis sit autem voluptate numquam omnis.</p>
-                <p class="name">Lorem, ipsum.</p>
-
-            </div>
+        @foreach ($initiators as $initiator)
+        <div class="col-12 col-md-4 p-5 mt-3">
+            <a href="#"><img src="{{$initiator->photo}}" class="rounded-circle img-fluid border"></a>
+            <h5 class="text-center mt-3 mb-3">{{$initiator->name}}</h5>
+            <p class="text-center">{{$initiator->quote}}.</p>
         </div>
-        <div class="col-lg">
-            <div class="text-center card  border-0 flex-column d-flex align-items-center">
-                <img src="{{asset('dummy/avatar.png')}}" alt="" height="70px" width="70px">
-                <p class="qoute">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas velit pariatur
-                    obcaecati perferendis! Aliquid, corporis sit autem voluptate numquam omnis.</p>
-                <p class="name">Lorem, ipsum.</p>
-            </div>
-        </div>
-        <div class="col-lg">
-            <div class="text-center card  border-0 flex-column d-flex align-items-center">
-                <img src="{{asset('dummy/avatar.png')}}" alt="" height="70px" width="70px">
-                <p class="qoute">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas velit pariatur
-                    obcaecati perferendis! Aliquid, corporis sit autem voluptate numquam omnis.</p>
-                <p class="name">Lorem, ipsum.</p>
-            </div>
-        </div>
+        @endforeach
     </div>
-    <div class="container d-flex flex-column align-items-center mt-5" id="product">
-        <div class="d-flex flex-column align-items-center">
-            <h2>Product UKM</h2>
-        </div>
-        <div class="row mt-2">
-            <div class="col-lg">
-                <div class="card  border-0" title="Klik untuk melihat detail produk">
-                    <div class="card-body p-4 mb-3">
-                        <img src="{{asset('dummy/tisu.png')}}" alt="" class="img-fluid d-block mx-auto mb-3">
-                        <h5> <a href="#" class="text-dark">Awesome product</a></h5>
-                        <div class="d-flex mb-2">
-                            <div class="d-flex align-items-center"><i class='bx bxs-star' style="color: #f5d442"></i> <span style="font-size:.85rem; color:#5a5a5a">4.5 | Dilihat 12</span></div>
-                        </div>
-                        <a href="#" class="button detailButton">Rp 100.000.00</a>
-                    </div>
-                    <a data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="Detail" href="https://wa.me/6281217297131?text=Saya%20tertarik%20dengan%20properti%20" target="_blank" class="button buyButton" style="cursor: pointer"> <i class='bx bx-info-circle'></i></a>
-                </div>
-            </div>
-            <div class="col-lg">
-                <div class="card  border-0" title="Klik untuk melihat detail produk">
-                    <div class="card-body p-4 mb-3">
-                        <img src="{{asset('dummy/tisu.png')}}" alt="" class="img-fluid d-block mx-auto mb-3">
-                        <h5> <a href="#" class="text-dark">Awesome product</a></h5>
-                        <div class="d-flex mb-2">
-                            <div class="d-flex align-items-center"><i class='bx bxs-star' style="color: #f5d442"></i> <span style="font-size:.85rem; color:#5a5a5a">4.5 | Dilihat 12</span></div>
-                        </div>
+</section>
+<!-- End Categories of The Month -->
 
 
-                        <a href="#" class="button detailButton">Rp 100.000.00</a>
-                    </div>
-                    <a data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="Detail" href="https://wa.me/6281217297131?text=Saya%20tertarik%20dengan%20properti%20" target="_blank" class="button buyButton" style="cursor: pointer"> <i class='bx bx-info-circle'></i></a>
-                </div>
-            </div>
-            <div class="col-lg">
-                <div class="card  border-0" title="Klik untuk melihat detail produk">
-                    <div class="card-body p-4 mb-3">
-                        <img src="{{asset('dummy/tisu.png')}}" alt="" class="img-fluid d-block mx-auto mb-3">
-                        <h5> <a href="#" class="text-dark">Awesome product</a></h5>
-                        <div class="d-flex mb-2">
-                            <div class="d-flex align-items-center"><i class='bx bxs-star' style="color: #f5d442"></i> <span style="font-size:.85rem; color:#5a5a5a">4.5 | Dilihat 12</span></div>
-                            <div class="d-flex align-items-center">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="button detailButton">Rp 100.000.00</a>
-                    <a data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="Detail" href="https://wa.me/6281217297131?text=Saya%20tertarik%20dengan%20properti%20" target="_blank" class="button buyButton" style="cursor: pointer"> <i class='bx bx-info-circle'></i></a>
-                </div>
+<!-- Start Featured Product -->
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Produk UKM</h1>
+                <p>
+                    Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident.
+                </p>
             </div>
         </div>
-        <div class="container d-flex flex-column align-items-center mt-5">
+        <div class="row">
+            @foreach ($products as $product)
+            <div class="col-12 col-md-4 mb-4">
+                <div class="card h-100">
+                    <a  href="ukm-product/{{$product->id}}">
+                        <img src="{{$product->product_image}}" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body">
+                        <ul class="list-unstyled d-flex justify-content-between">
+                            <li>
+                                @if (is_double($product["rates"]))
+                                    @for ($i = 0; $i < $product["rates"]; $i++)
+                                        <i class="text-warning fa fa-star"></i>
+                                    @endfor
+                                    @for ($i = 0; $i < 5 - $product["rates"]; $i++) <i class="fa fa-star"></i>
+                                        @endfor
+                                @else
+                                    @for ($i = 0; $i < 5; $i++) <i class="fa fa-star"></i>
+                                    @endfor
+                                @endif
+                            </li>
+                            <li class="text-muted text-right">{{$product->product_price}}</li>
+                        </ul>
+                        <a @if (Auth::check()) href="ukm-product/{{$product->id}}" @else href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" @endif class="h2 text-decoration-none text-dark">{{$product->product_name}}</a>
+                        <p class="card-text">
+                            {{$product->description}}
+                        </p>
+                        <p class="text-muted">Reviews ({{$product->reviews}})</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
+        <p class="text-center"><a class="btn btn-success" href="/ukm-products">Lihat semua produk</a></p>
     </div>
-</div>
+</section>
 @endsection

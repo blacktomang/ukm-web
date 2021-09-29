@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Support\Facades\Auth;
+
 
 class RegisterController extends Controller
 {
@@ -71,13 +73,23 @@ class RegisterController extends Controller
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
-// dd($inputRole);
         if ($inputRole) {
             $spatieRole = Role::where('name','=', $inputRole)->first();
             $user = User::create($validated);
             $user->assignRole($spatieRole);
             $request->session()->flash('success', 'Registrasi berhasil, silahkan login');
-            return redirect('/login');
+            if ($inputRole == 'buyer') {
+                return redirect('/login');
+            }else{
+                $credential = $request->validate([
+                    'username' => 'required|min:3|max:255',
+                    'password' => 'required'
+                ]);
+                $user = Auth::attempt($credential);
+                $request->session()->regenerate();
+                return view('pages.seller.index', compact('user'));
+            }
+
         }else {
             return back();
         }
