@@ -39,7 +39,8 @@ class ProductController extends Controller
         $id = Auth::user()->id;
         $user = User::find($id);
         $store_data = $user->stores;
-        $products = Product::paginate(10);
+        // dd($store_data);
+        $products = Product::where('store_id', $store_data->id)->paginate(10);
         for ($i = 0; $i < count($products); $i++) {
             // $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
             $rates = 0;

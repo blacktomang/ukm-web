@@ -20,8 +20,8 @@
   @yield('another-style-sheet')
   <link rel="stylesheet" href="{{asset('customs/custom.css')}}">
 </head>
-  @php
-  $paths = Request::path();
-  @endphp
+@php
+$paths = Request::path();
+@endphp
 
-<body @if($paths == "login") style="background-color: #00599e;"@endif >
+<body @if($paths=="login") style="background-color: #00599e;" @endif>

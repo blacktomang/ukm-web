@@ -8,11 +8,6 @@
         <h5 class="card-title text-center mb-5 fw-light fs-5">Selamat datang kembali</h5>
         <form action="{{route('login.store')}}" method="POST" class="d-flex text-center flex-column">
           @csrf
-          <!-- <div class="row">
-            <h2>
-              Selamat datang kembali
-            </h2>
-          </div> -->
           @if (session()->has('success'))
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{session('success')}}
