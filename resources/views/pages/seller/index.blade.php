@@ -109,9 +109,9 @@
         <h5 class="card-title text-center mb-5 fw-light fs-5">
           Atur Profil UKM
         </h5>
-        @if($errorLo)
+        @if(Session::has('errorLo'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          {{$errorLo}}
+          {{Session('errorLo')}}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
@@ -148,11 +148,11 @@
         </label>
         </span>
         <div class="m-b-36">
-<div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between" role="alert">
-                <span>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="small">
                   Pastikan file anda tidak melebihi 2mb(<a target="_blank" href="https://www.reduceimages.com/">Link compress
                     gambar</a>)</span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
           <div class="input-group hdtuto control-group lst increment mb-2">
 

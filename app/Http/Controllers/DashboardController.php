@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $id = Auth::user()->id;
         $user = User::find($id);
@@ -20,8 +20,8 @@ class DashboardController extends Controller
                 return view('pages.seller.dashboard', compact('products'));
                 # code...
             }else{
-                $errorLo = 'Anda belum mendaftarkan UKM anda';
-                return view('pages.seller.index', compact('user', 'errorLo'));
+                $request->session()->flash('errorLo', 'Anda belum mendaftarkan UKM anda');
+                return view('pages.seller.index', compact('user'));
             }
         }else{
             return back();

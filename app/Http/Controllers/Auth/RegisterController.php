@@ -66,12 +66,12 @@ class RegisterController extends Controller
         $validated = $request->validate([
             'name'=> 'required|max:255|min:3',
             'username'=> 'required|min:3|max:255|unique:users',
-           'email' =>   $nibOrEmailRule,
+            'email' =>   $nibOrEmailRule,
             'phoneNumber'=> 'required|min:8',
             'password' => 'required|min:6',
             'address'=> 'required|min:5'
         ]);
-
+  
         $validated['password'] = Hash::make($validated['password']);
         if ($inputRole) {
             $spatieRole = Role::where('name','=', $inputRole)->first();
