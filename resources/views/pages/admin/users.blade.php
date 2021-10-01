@@ -27,9 +27,10 @@
             <tr>
               <td>{{$key+1}}</td>
               <td>{{$user->name}}</td>
-              <td>{{$user->address}}</td>
+              <td>{{$user->phoneNumber}}</td>
               <td>{{$user->address}}</td>
               <td>{{$user->roles[0]->name}}</td>
+            </tr>
       </div>
       </td>
       </tr>
