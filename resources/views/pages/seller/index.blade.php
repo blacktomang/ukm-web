@@ -109,6 +109,12 @@
         <h5 class="card-title text-center mb-5 fw-light fs-5">
           Atur Profil UKM
         </h5>
+        @if($errorLo)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{$errorLo}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <label class="small" for="name">
           Nama UKM<br>(ubah jika nama anda berbeda dengan nama UKM)
         </label>
@@ -142,7 +148,12 @@
         </label>
         </span>
         <div class="m-b-36">
-
+<div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between" role="alert">
+                <span>
+                  Pastikan file anda tidak melebihi 2mb(<a target="_blank" href="https://www.reduceimages.com/">Link compress
+                    gambar</a>)</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
+              </div>
           <div class="input-group hdtuto control-group lst increment mb-2">
 
             <input type="file" name="filenames[]" class="myfrm form-control">

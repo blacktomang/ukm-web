@@ -15,9 +15,14 @@ class DashboardController extends Controller
         $user = User::find($id);
         if ($user->hasRole("seller")) {
             $store =  $user->stores;
-            $products= count($store->products);
-            return view('pages.seller.dashboard', compact('products'));
-           
+            if ($store!=null) {
+                $products= count($store->products);
+                return view('pages.seller.dashboard', compact('products'));
+                # code...
+            }else{
+                $errorLo = 'Anda belum mendaftarkan UKM anda';
+                return view('pages.seller.index', compact('user', 'errorLo'));
+            }
         }else{
             return back();
         }

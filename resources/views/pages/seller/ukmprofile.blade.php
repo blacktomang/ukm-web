@@ -7,8 +7,7 @@
       <h4>Edit Profil UKM</h4>
     </div>
     <div class="card-body p-0">
-      <form action="{{route('stores.update', $store->id)}}" method="POST" id="form-add-inbox-data"
-        enctype="multipart/form-data">
+      <form action="{{route('stores.update', $store->id)}}" method="POST" id="form-add-inbox-data" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <input type="hidden" name="nib" value="{{Auth::user()->email}}">
@@ -33,45 +32,49 @@
           </div>
           <div class="form-group col-md-12">
             <label for="">Tambah foto baru</label>
-          <div class="m-b-36">
-            <div class="input-group hdtuto control-group lst increment mb-2">
-          
-              <input type="file" name="filenames[]" class="myfrm form-control">
-          
-              <div class="input-group-btn">
-          
-                <button class="btn btn-success" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>Add</button>
-          
+            <div class="m-b-36">
+              <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between" role="alert">
+                <span>
+                  Pastikan file anda tidak melebihi 2mb(<a target="_blank" href="https://www.reduceimages.com/">Link compress gambar</a>)</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
               </div>
-          
-            </div>
-          
-            <div class="clone hide mb-2" hidden>
-          
-              <div class="hdtuto control-group lst input-group" style="margin-top:10px">
-          
+              <div class="input-group hdtuto control-group lst increment mb-2">
+
                 <input type="file" name="filenames[]" class="myfrm form-control">
-          
+
                 <div class="input-group-btn">
-          
-                  <button class="btn btn-danger" type="button"><i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>
-          
+
+                  <button class="btn btn-success" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>Add</button>
+
                 </div>
-          
+
               </div>
-          
+
+              <div class="clone hide mb-2" hidden>
+
+                <div class="hdtuto control-group lst input-group" style="margin-top:10px">
+
+                  <input type="file" name="filenames[]" class="myfrm form-control">
+
+                  <div class="input-group-btn">
+
+                    <button class="btn btn-danger" type="button"><i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>
+
+                  </div>
+
+                </div>
+
+              </div>
             </div>
-          </div>
           </div>
           <div class="row">
             @foreach ($store_images as $index => $store_image)
-           
+
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 position-relative">
               <img src="{{asset("$store_image->db_address")}}" class="w-100 shadow-1-strong rounded mb-4" alt="" />
               <div class="position-absolute" style="top: 0px;right: 0px;">
-                <a href="#" onclick="event.preventDefault(); document.getElementById('delete-product{{$index}}').submit();"
-                  class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-             
+                <a href="#" onclick="event.preventDefault(); document.getElementById('delete-product{{$index}}').submit();" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+
               </div>
             </div>
             @endforeach
@@ -102,18 +105,18 @@
 
 
   var items = $(".hdtuto").length;
-    $(document).ready(function() {
-    
+  $(document).ready(function() {
+
     $(".btn-success").click(function() {
-    var lsthmtl = $(".clone").html();
-    $(".increment").after(lsthmtl);
-    
+      var lsthmtl = $(".clone").html();
+      $(".increment").after(lsthmtl);
+
     });
-    
+
     $("body").on("click", ".btn-danger", function() {
-    $(this).parents(".hdtuto").remove();
+      $(this).parents(".hdtuto").remove();
     });
-    
-    });
+
+  });
 </script>
 @endsection
