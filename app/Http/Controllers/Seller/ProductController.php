@@ -128,8 +128,17 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-       $product = Product::find($id);
-       return view('pages.seller.edit-product', compact('product'));
+       $user = Auth::user();
+       $store = $user->stores;
+    //    dd($store->id);
+       $product = Product::where('id',$id)->where('store_id',$store->id)->first();
+       if ($product) {
+           return view('pages.seller.edit-product', compact('product'));
+           # code...
+       }
+       else{
+           return redirect()->back();
+       }
     }
 
     /**
