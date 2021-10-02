@@ -6,7 +6,7 @@
     <div class="card border-0 shadow rounded-3 my-5">
       <div class="card-body p-4 p-sm-5">
         <h2 class="card-title text-center mb-5 fw-light fs-5">
-          Selamat Data di Sistem Pemesanan UKM Desa Bontolo
+          Selamat Data di Sistem Pemesanan UKM Desa Tombolo
         </h2>
         <form action="{{route('register.store')}}" method="POST" class="d-flex align-items-center text-center">
           @csrf
