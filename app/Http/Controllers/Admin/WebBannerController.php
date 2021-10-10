@@ -51,7 +51,8 @@ class WebBannerController extends Controller
         $files = $request->file('image');
 
         $fileName = time() . $files->hashName();
-        $files->move($this->pathImage, $fileName);
+        
+        $files->move(public_path($this->pathImage), $fileName);
         try {
             WebBanner::create([
                 'title' => $request->title,
@@ -150,7 +151,7 @@ class WebBannerController extends Controller
     {
         $banner = WebBanner::find($id);
         try {
-            $image = $banner->image;
+            $image = public_path($banner->image);
             File::delete($image);
             $banner->delete();
             toast("Data $banner->name berhasil dihapus", 'success');

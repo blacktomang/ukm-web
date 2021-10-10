@@ -52,7 +52,7 @@ class StoreImageController extends Controller
             }
             //code...
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
         }
 
         //
@@ -103,7 +103,7 @@ class StoreImageController extends Controller
         $storeImage = StoreImage::find($id);
         try {
             $image = $storeImage->db_address;
-            File::delete($image);
+            File::delete(public_path($image));
             $storeImage->delete();
             toast("Foto berhasil dihapus", 'success');
             return redirect()->back();

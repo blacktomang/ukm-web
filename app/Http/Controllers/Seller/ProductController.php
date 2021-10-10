@@ -89,7 +89,7 @@ class ProductController extends Controller
         $files = $request->file('product_image');
 
         $fileName = time() . $files->hashName();
-        $files->move($this->pathImage, $fileName);
+        $files->move(public_path($this->pathImage), $fileName);
         try {
            Product::create([
                 'store_id'=> $request->store_id,
@@ -103,7 +103,7 @@ class ProductController extends Controller
             toast('Penambahan data berhasil!', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
-            File::delete($this->pathImage. $fileName);
+            File::delete(public_path($this->pathImage. $fileName));
             toast($th->getMessage(), 'error');
             return redirect()->back();
         }
@@ -164,7 +164,7 @@ class ProductController extends Controller
 
             $product = Product::find($id);
             if ($request->file('product_image')) {
-                File::delete($product->product_image);
+                File::delete(public_path($product->product_image));
 
                 $files = $request->file('product_image');
  
@@ -204,7 +204,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         try {
             $image = $product->product_image;
-            File::delete($image);
+            File::delete(public_path($image));
             $product->delete();
             toast("Produk $product->product_name berhasil dihapus", 'success');
             return redirect()->back();

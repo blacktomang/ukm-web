@@ -47,7 +47,7 @@ class InitiatorController extends Controller
         $files = $request->file('photo');
 
         $fileName = time() . $files->hashName();
-        $files->move($this->pathImage, $fileName);
+        $files->move(public_path($this->pathImage), $fileName);
         try {
             Initiator::create([
                 'name' => $request->name,
@@ -57,7 +57,7 @@ class InitiatorController extends Controller
             toast('Penambahan data berhasil!', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
-            File::delete($this->pathImage . $fileName);
+            File::delete(public_path($this->pathImage . $fileName));
             toast($th->getMessage(), 'error');
             return redirect()->back();
         }
@@ -107,7 +107,7 @@ class InitiatorController extends Controller
 
             $initiator = Initiator::find($id);
             if ($request->file('photo')) {
-                File::delete($initiator->photo);
+                File::delete(public_path($initiator->photo));
 
                 $files = $request->file('photo');
 
@@ -146,7 +146,7 @@ class InitiatorController extends Controller
         $initiator = Initiator::find($id);
         try {
             $image = $initiator->photo;
-            File::delete($image);
+            File::delete(public_path($image));
             $initiator->delete();
             toast("Data $initiator->name berhasil dihapus", 'success');
             return redirect()->back();
