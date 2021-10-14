@@ -165,7 +165,7 @@ class ProductController extends Controller
             $product = Product::find($id);
             if ($request->file('product_image')) {
                 if (public_path($product->product_image)) {
-                    File::delete();
+                    File::delete(public_path($product->product_image));
                 }
 
                 $files = $request->file('product_image');
@@ -179,16 +179,17 @@ class ProductController extends Controller
                     'product_image' => $this->pathImage . $fileName
                 ]);
                 toast("Data $product->product_name berhasil diupdate", "success");
-                return redirect('/product');
+                return back();
             }
             $product->update([
                 'product_name' =>  $name,
                 'product_price' =>  $price,
             ]);
             toast("Data $product->product_name berhasil diupdate","success");
-            return redirect('/product');
+            return back();
             //code...
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             toast("Terjadi kesalahan saat mengupdate data $product->product_name", "error");
             return back();
         }
