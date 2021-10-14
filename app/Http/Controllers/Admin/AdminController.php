@@ -58,4 +58,38 @@ class AdminController extends Controller
         $stores = Store::paginate(10);
         return view('pages.admin.stores', compact('stores'));
     }
+    public function delete_user($id){
+        try {
+            $user = User::find($id);
+            if ($user->stores!=0) {
+                $stores = $user->stores;
+                dd($stores);
+            }else {
+                $user->delete();
+            }
+            toast("User $user->name erhasil dihapus", "success");
+        } catch (\Throwable $th) {
+            toast("Oops", "error");
+        }
+    }
+    public function delete_store($id)
+    {
+        try {
+            $user = User::find($id);
+            $user->delete();
+            toast("User $user->name berhasil dihapus", "success");
+        } catch (\Throwable $th) {
+            toast("Oops", "error");
+        }
+    }
+    public function delete_product($id)
+    {
+        try {
+            $user = User::find($id);
+            $user->delete();
+            toast("User $user->name erhasil dihapus", "success");
+        } catch (\Throwable $th) {
+            toast("Oops", "error");
+        }
+    }
 }

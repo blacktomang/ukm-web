@@ -218,9 +218,7 @@
     console.log(review_value);
     console.log(rate_value);
     $.ajax({
-
       type: 'PATCH',
-
       url: url,
       data: {
         review_value: review_value,

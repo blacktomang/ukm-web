@@ -30,6 +30,12 @@
               <td>{{$user->phoneNumber}}</td>
               <td>{{$user->address}}</td>
               <td>{{$user->roles[0]->name}}</td>
+              <td> <a href="#" onclick="deleteUser(e)" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                <form id="delete-user" action="{{route('delete_user',$product->id)}}" method="POST">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                </form>
+              </td>
             </tr>
       </div>
       </td>
@@ -101,5 +107,43 @@
   $('#addInbox').on('click', () => {
     $('#modal_tambah').modal('show')
   });
+
+  function deleteUser(id) {
+    $swal.fire({
+        title: 'Yakin?',
+        text: "Ingin menghapus data ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Tidak',
+        confirmButtonText: 'Ya!'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          new Promise((resolve, reject) => {
+            var url = `{{route('delete_user')}}/${id}`;
+            $axios.delete(`${url}`)
+              .then(({
+                data
+              }) => {
+                $swal.fire({
+                  icon: 'success',
+                  title: data.message.head,
+                  text: data.message.body
+                })
+              })
+              .catch(err => {
+                let data = err.response.data
+                $swal.fire({
+                  icon: 'error',
+                  title: data.message.head,
+                  text: data.message.body
+                })
+              })
+          })
+        }
+      });
+  }
 </script>
 @endsection
