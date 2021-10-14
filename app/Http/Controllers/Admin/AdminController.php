@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
+use Hamcrest\Type\IsInteger;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -61,7 +62,8 @@ class AdminController extends Controller
     public function delete_user($id){
         try {
             $user = User::find($id);
-            if ($user->stores()->exists()) {
+           
+            if ( !is_integer($user->stores)) {
                 $stores = $user->stores;
                 return response()->json([
                     'status' => true,
