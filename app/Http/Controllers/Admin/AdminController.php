@@ -60,16 +60,21 @@ class AdminController extends Controller
         return view('pages.admin.stores', compact('stores'));
     }
     public function delete_user($id){
+        $user = User::find($id);
         try {
-            $user = User::find($id);
-           
-            if ( !is_integer($user->stores)) {
-                $stores = $user->stores;
+            if (!is_integer($user->stores)) {
+                $store = $user->stores;
+                // $products = $store->products;
+                // $store_images = $store->storeImages;
+                // foreach ($products as $key => $value) {
+                // }
+                // foreach ($store_images as $key => $value) {
+                // }
                 return response()->json([
                     'status' => true,
                     'message' => [
                         'head' => 'Sukses',
-                        'body' => $stores
+                        'body' => $store
                     ]
                 ], 200);
             }else {
@@ -84,6 +89,15 @@ class AdminController extends Controller
             }
             // toast("User $user->name erhasil dihapus", "success");
         } catch (\Throwable $th) {
+            if ($th->getMessage()== 'App\Models\User::stores must return a relationship instance.') {
+                return response()->json([
+                    'status' => true,
+                    'message' => [
+                        'head' => 'Sukses',
+                        'body' => "pulupulu"
+                    ]
+                ], 500);
+            }
             return response()->json([
                 'status' => true,
                 'message' => [
