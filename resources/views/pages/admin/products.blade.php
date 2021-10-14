@@ -45,7 +45,7 @@
               </td>
               <td>
                 <a href="#" onclick="event.preventDefault(); document.getElementById('delete-product').submit();" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-                <form id="delete-product" action="{{route('product',$product->id)}}" method="POST">
+                <form id="delete-product" action="{{route('product.admin.delete',$product->id)}}" method="POST">
                   <input type="hidden" name="_method" value="DELETE">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </form>
