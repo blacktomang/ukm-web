@@ -5,7 +5,6 @@
   <div class="card">
     <div class="card-header">
       <h4>Ukm  yang terdaftar</h4>
-  
     </div>
     <div class="card-body p-0">
       <div class="table-responsive">
