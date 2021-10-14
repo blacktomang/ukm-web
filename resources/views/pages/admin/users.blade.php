@@ -12,7 +12,7 @@
         </button>
       </div> -->
     </div>
-    <div class="card-body p-0">
+    <div class="card-body p-0" id="table_data">
       <div class="table-responsive">
         <table class="table table-striped table-md">
           <tbody>
@@ -110,10 +110,10 @@
     $('#modal_tambah').modal('show')
   });
 
-  function deleteUser(id) {
+  function deleteUser(id, role) {
     Swal.fire({
         title: 'Yakin?',
-        text: "Ingin menghapus data ini!",
+        text: role==="seller"?"Menghapus seller akan menghapus semua produk, dan ukm yang dimiliki seller!":"Anda akan menghapus akun pembeli!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -123,6 +123,7 @@
       })
       .then((result) => {
         if (result.isConfirmed) {
+          $("#table_data")..LoadingOverlay('show');
           new Promise((resolve, reject) => {
             var url = `/admin/user/${id}`;
             axios.delete(`${url}`)
@@ -147,7 +148,8 @@
                   text: data.message.body
                 })
               })
-          })
+          });
+          .LoadingOverlay('hide');
         }
       });
   }

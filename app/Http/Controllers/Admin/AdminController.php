@@ -71,6 +71,14 @@ class AdminController extends Controller
                 $products = $store->products;
                 $store_images = $store->storeImages;
                 foreach ($products as $key => $value) {
+                    $rates = $value->rates;
+                    $reviews = $value->reviews;
+                    foreach ($rates as $key => $rate) {
+                        $rate->delete();
+                    }
+                    foreach ($reviews as $key => $review) {
+                        $review->delete();
+                    }
                     Product::find($value->id)->delete();
                     File::delete(public_path($value->product_image));
                 }
