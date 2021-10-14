@@ -122,7 +122,7 @@
       .then((result) => {
         if (result.isConfirmed) {
           new Promise((resolve, reject) => {
-            var url = `{{route('delete_user')}}/${id}`;
+            var url = `{{route('user')}}/${id}`;
             $axios.delete(`${url}`)
               .then(({
                 data
