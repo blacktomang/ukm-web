@@ -31,7 +31,7 @@
               <td>{{$user->address}}</td>
               <td>{{$user->roles[0]->name}}</td>
               <td> <a href="#" onclick="deleteUser({{$user->id}})" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-             
+
               </td>
             </tr>
       </div>
@@ -119,7 +119,7 @@
       .then((result) => {
         if (result.isConfirmed) {
           new Promise((resolve, reject) => {
-            var url = `/user/${id}`;
+            var url = `admin/user/${id}`;
             axios.delete(`${url}`)
               .then(({
                 data
