@@ -33,7 +33,7 @@
         if (result.isConfirmed) {
           new Promise((resolve, reject) => {
             var url = `reset_data`;
-            axios.delete(`${url}`)
+            axios.post(`/admin/${url}`)
               .then(({
                 data
               }) => {
