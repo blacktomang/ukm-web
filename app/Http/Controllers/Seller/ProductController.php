@@ -164,7 +164,9 @@ class ProductController extends Controller
 
             $product = Product::find($id);
             if ($request->file('product_image')) {
-                File::delete(public_path($product->product_image));
+                if (public_path($product->product_image)) {
+                    File::delete();
+                }
 
                 $files = $request->file('product_image');
  
