@@ -120,7 +120,7 @@
         if (result.isConfirmed) {
           new Promise((resolve, reject) => {
             var url = `/user/${id}`;
-            $axios.delete(`${url}`)
+            axios.delete(`${url}`)
               .then(({
                 data
               }) => {
