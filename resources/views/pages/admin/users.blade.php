@@ -22,6 +22,7 @@
               <th>Nomor Hp</th>
               <th>Alamat</th>
               <th>Role</th>
+              <th>Action</th>
             </tr>
             @foreach ($users as $key => $user)
             <tr>
