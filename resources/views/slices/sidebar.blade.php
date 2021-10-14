@@ -32,9 +32,16 @@
      </ul>
 
      <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+       @hasrole('admin')
+       <a href="#" onclick="resetData()" class="btn btn-danger btn-lg btn-block btn-icon-split">
+         <i class="fas fa-rocket"></i> Reset Data
+       </a>
+       @endhasrole
+       @hasrole('seller')
        <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
          <i class="fas fa-rocket"></i> DEV
        </a>
+       @endhasrole
      </div>
    </aside>
  </div>
