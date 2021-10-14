@@ -123,7 +123,7 @@
       })
       .then((result) => {
         if (result.isConfirmed) {
-          $("#table_data")..LoadingOverlay('show');
+          $("#table_data").LoadingOverlay('show');
           new Promise((resolve, reject) => {
             var url = `/admin/user/${id}`;
             axios.delete(`${url}`)
@@ -149,7 +149,7 @@
                 })
               })
           });
-          .LoadingOverlay('hide');
+          $("#table_data").LoadingOverlay('hide');
         }
       });
   }
