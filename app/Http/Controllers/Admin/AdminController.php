@@ -63,11 +63,12 @@ class AdminController extends Controller
             $user = User::find($id);
             if ($user->stores!=0) {
                 $stores = $user->stores;
-                dd($stores);
+                return ($stores);
             }else {
+                return $user;
                 $user->delete();
             }
-            toast("User $user->name erhasil dihapus", "success");
+            // toast("User $user->name erhasil dihapus", "success");
         } catch (\Throwable $th) {
             toast("Oops", "error");
         }
