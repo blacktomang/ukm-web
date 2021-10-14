@@ -1,7 +1,6 @@
 @section('title', 'Produk UKM' )
 @extends('layouts.web')
 @section('content')
-
 <section class="bg-light">
   <div class="container pb-5">
     <div class="row">
@@ -339,5 +338,4 @@ window.onload =()=>{
   }
 }
 </script>
-
 @endsection
