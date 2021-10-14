@@ -179,14 +179,14 @@ class ProductController extends Controller
                     'product_image' => $this->pathImage . $fileName
                 ]);
                 toast("Data $product->product_name berhasil diupdate", "success");
-                return back();
+                return redirect('/product');
             }
             $product->update([
                 'product_name' =>  $name,
                 'product_price' =>  $price,
             ]);
             toast("Data $product->product_name berhasil diupdate","success");
-            return back();
+            return redirect('/product');
             //code...
         } catch (\Throwable $th) {
             dd($th->getMessage());
