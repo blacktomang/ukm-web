@@ -106,7 +106,7 @@
 @endsection
 @section('script')
 <script>
-  $(document).ready(function () {
+
   $('#addInbox').on('click', () => {
     $('#modal_tambah').modal('show')
   });
@@ -124,7 +124,9 @@
       })
       .then((result) => {
         if (result.isConfirmed) {
-          $("#table_data").LoadingOverlay('show');
+          $(document).ready(function () {
+            $("#table_data").LoadingOverlay('show');
+          }
           new Promise((resolve, reject) => {
             var url = `/admin/user/${id}`;
             axios.delete(`${url}`)
@@ -150,10 +152,11 @@
                 })
               })
           });
-          $("#table_data").LoadingOverlay('hide');
+          $(document).ready(function(){
+            $("#table_data").LoadingOverlay('hide');
+          })
         }
       });
   }
-  });
 </script>
 @endsection
