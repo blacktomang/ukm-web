@@ -126,7 +126,7 @@
         if (result.isConfirmed) {
           $(document).ready(function () {
             $("#table_data").LoadingOverlay('show');
-          }
+          });
           new Promise((resolve, reject) => {
             var url = `/admin/user/${id}`;
             axios.delete(`${url}`)
@@ -154,7 +154,7 @@
           });
           $(document).ready(function(){
             $("#table_data").LoadingOverlay('hide');
-          })
+          });
         }
       });
   }
