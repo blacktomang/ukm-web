@@ -2,7 +2,7 @@
 @section('title', 'Admin Dashboard' )
 @section('content')
 <div class="section-body">
-  <div class="card">
+  <div class="card" id="table_data">
     <div class="card-header">
       <h4>User di Website Ukm</h4>
       <!-- <div class="card-header-action">
@@ -12,7 +12,7 @@
         </button>
       </div> -->
     </div>
-    <div class="card-body p-0" id="table_data">
+    <div class="card-body p-0" >
       <div class="table-responsive">
         <table class="table table-striped table-md">
           <tbody>
@@ -106,6 +106,7 @@
 @endsection
 @section('script')
 <script>
+  $(document).ready(function () {
   $('#addInbox').on('click', () => {
     $('#modal_tambah').modal('show')
   });
@@ -153,5 +154,6 @@
         }
       });
   }
+  });
 </script>
 @endsection
