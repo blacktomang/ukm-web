@@ -61,7 +61,7 @@ class AdminController extends Controller
     public function delete_user($id){
         try {
             $user = User::find($id);
-            if ($user->stores!=0) {
+            if ($user->stores()->exists()) {
                 $stores = $user->stores;
                 return response()->json([
                     'status' => true,
@@ -88,7 +88,7 @@ class AdminController extends Controller
                     'head' => 'Sukses',
                     'body' => $th->getMessage()
                 ]
-            ], 200);
+            ], 500);
         }
     }
     public function delete_store($id)
