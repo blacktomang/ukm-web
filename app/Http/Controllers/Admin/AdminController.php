@@ -69,6 +69,16 @@ class AdminController extends Controller
             if (!is_integer($user->stores)) {
                 $store = $user->stores;
                 $products = $store->products;
+                if ($store == null || $products==null) {
+                    $user->delete();
+                    return response()->json([
+                        'status' => true,
+                        'message' => [
+                            'head' => 'Sukses',
+                            'body' => "Seller $user->name dihapus"
+                        ]
+                    ], 200);
+                }
                 $store_images = $store->storeImages;
                 foreach ($products as $key => $value) {
                     $rates = $value->rates;
@@ -92,7 +102,7 @@ class AdminController extends Controller
                     'status' => true,
                     'message' => [
                         'head' => 'Sukses',
-                        'body' => "Seller berhasil dihapus!"
+                        'body' => "Seller $user->name berhasil dihapus!"
                     ]
                 ], 200);
             }
@@ -104,7 +114,7 @@ class AdminController extends Controller
                     'status' => true,
                     'message' => [
                         'head' => 'Sukses',
-                        'body' => 'User dihapus'
+                        'body' => "User $user->name dihapus"
                     ]
                 ], 200);
             }

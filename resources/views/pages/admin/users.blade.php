@@ -112,6 +112,7 @@
   });
 
   function deleteUser(id, role) {
+    const URL_NOW = `{{ request()->url() }}`;
     Swal.fire({
         title: 'Yakin?',
         text: role==="seller"?"Menghapus seller akan menghapus semua produk, dan ukm yang dimiliki seller!":"Anda akan menghapus akun pembeli!",
@@ -139,7 +140,7 @@
                   text: data.message.body
                 }).then((result)=>{
                   if (result.isConfirmed) {
-                    window.location.reload();
+                   window.location.replace(location.pathname);
                   }
                 })
               })
