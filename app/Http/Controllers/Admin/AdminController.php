@@ -92,7 +92,6 @@ class AdminController extends Controller
         } catch (\Throwable $th) {
             if ($th->getMessage()== 'App\Models\User::stores must return a relationship instance.') {
                 $user->delete();
-
                 return response()->json([
                     'status' => true,
                     'message' => [

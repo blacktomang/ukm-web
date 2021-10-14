@@ -128,6 +128,10 @@
                   icon: 'success',
                   title: data.message.head,
                   text: data.message.body
+                }).then((result)=>{
+                  if (result.isConfirmed) {
+                    window.location.reload();
+                  }
                 })
               })
               .catch(err => {

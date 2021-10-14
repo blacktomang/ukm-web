@@ -73,8 +73,8 @@ class ViewController extends Controller
         $count_rates = count($rates);
         for ($i = 0; $i < $count_reviews; $i++) {
             $temp_data = [];
-            $temp_data["user_id"] = $reviews[$i]->user_id;
-            $temp_data["user_name"] = User::find($reviews[$i]->user_id)->name;
+            $temp_data["user_id"] = $reviews[$i]->user_id??0;
+            $temp_data["user_name"] = User::find($reviews[$i]->user_id)->name??"User tidak ditemukan";
             $temp_data["rate"] = $rates[$i]->value;
             $temp_data["id"] = $id;
             $temp_data["comment"] = $reviews[$i]->value;
