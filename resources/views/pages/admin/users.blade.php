@@ -31,10 +31,7 @@
               <td>{{$user->address}}</td>
               <td>{{$user->roles[0]->name}}</td>
               <td> <a href="#" onclick="deleteUser({{$user->id}})" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-                <!-- <form id="delete-user" action="{{route('delete_user',$user->id)}}" method="POST">
-                  <input type="hidden" name="_method" value="DELETE">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                </form> -->
+             
               </td>
             </tr>
       </div>
