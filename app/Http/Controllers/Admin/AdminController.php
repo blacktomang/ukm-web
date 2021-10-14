@@ -68,8 +68,18 @@ class AdminController extends Controller
         try {
             if (!is_integer($user->stores)) {
                 $store = $user->stores;
+                if ($store == null) {
+                    $user->delete();
+                    return response()->json([
+                        'status' => true,
+                        'message' => [
+                            'head' => 'Sukses',
+                            'body' => "Seller $user->name dihapus"
+                        ]
+                    ], 200);
+                }
                 $products = $store->products;
-                if ($store == null || $products==null) {
+                if ($products == null) {
                     $user->delete();
                     return response()->json([
                         'status' => true,
@@ -121,7 +131,7 @@ class AdminController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => [
-                    'head' => 'Sukses',
+                    'head' => 'Oops',
                     'body' => $th->getMessage()
                 ]
             ], 500);
