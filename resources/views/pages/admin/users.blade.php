@@ -119,7 +119,7 @@
       .then((result) => {
         if (result.isConfirmed) {
           new Promise((resolve, reject) => {
-            var url = `admin/user/${id}`;
+            var url = `/admin/user/${id}`;
             axios.delete(`${url}`)
               .then(({
                 data
