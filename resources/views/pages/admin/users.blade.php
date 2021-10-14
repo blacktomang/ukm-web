@@ -32,7 +32,7 @@
               <td>{{$user->roles[0]->name}}</td>
               @php
               $role = "${value->getRoleNames()->first()}";
-              $functionn = "deleteUser(".$user->id.","."'".$role."'".")"
+              $functionn = "deleteUser(".$user->id.","."'".$role."'".")";
                  echo"<td> <a href='#' onclick=$functionn class='btn btn-danger'><i class='far fa-trash-alt'></i></a>";
                   
               @endphp
