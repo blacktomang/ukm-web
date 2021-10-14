@@ -63,9 +63,21 @@ class AdminController extends Controller
             $user = User::find($id);
             if ($user->stores!=0) {
                 $stores = $user->stores;
-                return ($stores);
+                return response()->json([
+                    'status' => true,
+                    'message' => [
+                        'head' => 'Sukses',
+                        'body' => $stores
+                    ]
+                ], 200);
             }else {
-                return $user;
+                return response()->json([
+                    'status' => true,
+                    'message' => [
+                        'head' => 'Sukses',
+                        'body' => $user
+                    ]
+                ], 200);
                 $user->delete();
             }
             // toast("User $user->name erhasil dihapus", "success");
