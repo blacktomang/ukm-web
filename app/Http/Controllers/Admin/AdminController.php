@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Rate;
+use App\Models\Review;
 use App\Models\Store;
+use App\Models\StoreImage;
 use App\Models\User;
 use Hamcrest\Type\IsInteger;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -64,39 +68,38 @@ class AdminController extends Controller
         try {
             if (!is_integer($user->stores)) {
                 $store = $user->stores;
-                // $products = $store->products;
-                // $store_images = $store->storeImages;
-                // foreach ($products as $key => $value) {
-                // }
-                // foreach ($store_images as $key => $value) {
-                // }
-                return response()->json([
-                    'status' => true,
-                    'message' => [
-                        'head' => 'Sukses',
-                        'body' => $store
-                    ]
-                ], 200);
-            }else {
-                return response()->json([
-                    'status' => true,
-                    'message' => [
-                        'head' => 'Sukses',
-                        'body' => $user
-                    ]
-                ], 200);
+                $products = $store->products;
+                $store_images = $store->storeImages;
+                foreach ($products as $key => $value) {
+                    Product::find($value->id)->delete();
+                    File::delete(public_path($value->product_image));
+                }
+                foreach ($store_images as $key => $value) {
+                    StoreImage::find($value->id)->delete();
+                    File::delete(public_path($value->db_address));
+                }
+                $store->delete();
                 $user->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => [
+                        'head' => 'Sukses',
+                        'body' => "Seller berhasil dihapus!"
+                    ]
+                ], 200);
             }
             // toast("User $user->name erhasil dihapus", "success");
         } catch (\Throwable $th) {
             if ($th->getMessage()== 'App\Models\User::stores must return a relationship instance.') {
+                $user->delete();
+
                 return response()->json([
                     'status' => true,
                     'message' => [
                         'head' => 'Sukses',
-                        'body' => "pulupulu"
+                        'body' => 'User dihapus'
                     ]
-                ], 500);
+                ], 200);
             }
             return response()->json([
                 'status' => true,
@@ -120,9 +123,9 @@ class AdminController extends Controller
     public function delete_product($id)
     {
         try {
-            $user = User::find($id);
-            $user->delete();
-            toast("User $user->name erhasil dihapus", "success");
+            $product = Product::find($id);
+            $product->delete();
+            toast("User $product->name berhasil dihapus", "success");
         } catch (\Throwable $th) {
             toast("Oops", "error");
         }
