@@ -82,7 +82,13 @@ class AdminController extends Controller
             }
             // toast("User $user->name erhasil dihapus", "success");
         } catch (\Throwable $th) {
-            toast("Oops", "error");
+            return response()->json([
+                'status' => true,
+                'message' => [
+                    'head' => 'Sukses',
+                    'body' => $th->getMessage()
+                ]
+            ], 200);
         }
     }
     public function delete_store($id)
