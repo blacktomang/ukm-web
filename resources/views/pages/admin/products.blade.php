@@ -15,15 +15,16 @@
               <th>Nama Produk</th>
               <th>Harga</th>
               <th>Deskripsi</th>
-               <th>Nama Ukm</th>
+              <th>Nama Ukm</th>
               <th>Gambar Produk</th>
               <th>Rate</th>
+              <td>Action</td>
             </tr>
             @foreach ($products as $key => $product)
             <tr>
               <td>{{$key+1}}</td>
               <td>{{$product->product_name}}</td>
-              <td>{{$product->stores->store_name}}</td> 
+              <td>{{$product->stores->store_name}}</td>
               <td>{{$product->product_price}}</td>
               <td>{{$product->description}}</td>
               <td><img src="{{asset($product->product_image)}}" alt="..." width="50px" height="30px"></td>
@@ -43,7 +44,11 @@
                 </ul>
               </td>
               <td>
-                
+                <a href="#" onclick="event.preventDefault(); document.getElementById('delete-product').submit();" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                <form id="delete-product" action="{{route('delete_product,$product->id)}}" method="POST">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                </form>
               </td>
             </tr>
             @endforeach
@@ -51,11 +56,11 @@
         </table>
       </div>
     </div>
-<div class="card-footer text-right" modal-part>
-    <div class="card-footer">
-      {!!$products->links()!!}
+    <div class="card-footer text-right" modal-part>
+      <div class="card-footer">
+        {!!$products->links()!!}
+      </div>
     </div>
-  </div>
   </div>
 </div>
 </div>

@@ -55,7 +55,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::get('stores', [AdminController::class, 'stores']);
     Route::delete('user/{id}', [AdminController::class, 'delete_user']);
     Route::delete('product/{id}', [AdminController::class, 'delete_product']);
-    Route::delete('store{id}', [AdminController::class, 'delete_store']);
+    // Route::delete('store{id}', [AdminController::class, 'delete_store']);
+    Route::delete('reset_data', [AdminController::class, 'maintenance']);
     Route::resource('initiators', InitiatorController::class);
     Route::resource('banners', WebBannerController::class);
 });

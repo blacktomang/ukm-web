@@ -11,6 +11,7 @@ use App\Models\StoreImage;
 use App\Models\User;
 use Hamcrest\Type\IsInteger;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
@@ -140,9 +141,9 @@ class AdminController extends Controller
     public function delete_store($id)
     {
         try {
-            $user = User::find($id);
+            $user = Store::find($id);
             $user->delete();
-            toast("User $user->name berhasil dihapus", "success");
+            toast("UKM $user->name berhasil dihapus", "success");
         } catch (\Throwable $th) {
             toast("Oops", "error");
         }
@@ -151,10 +152,53 @@ class AdminController extends Controller
     {
         try {
             $product = Product::find($id);
+            $image = $product->product_image;
             $product->delete();
+            if ($image) {
+                File::delete(public_path($image));
+            }
             toast("User $product->name berhasil dihapus", "success");
+            return back();
         } catch (\Throwable $th) {
             toast("Oops", "error");
+            return back();
+        }
+    }
+
+    public function maintenance(){
+        
+        try {
+            if (!Auth::check()) {
+                    return  response()->json([
+                        'status' => false,
+                        'message' => [
+                            'head' => 'Oops',
+                            'body' => "You are not an admin!"
+                        ]
+                    ], 500);
+            }
+            User::whereHas('roles', function ($query) {
+                $query->where('name', '!=', 'admin');
+            })->with('roles')->delete();
+            Rate::truncate();
+            Review::truncate();
+            Store::truncate();
+            Product::truncate();
+            return  response()->json([
+                'status' => true,
+                'message' => [
+                    'head' => 'Berhasil',
+                    'body' => 'Data berhasil direset'
+                ]
+            ], 200);
+        } catch (\Throwable $th) {
+            return  response()->json([
+                'status' => false,
+                'message' => [
+                    'head' => 'Oops',
+                    'body' => $th->getMessage()
+                ]
+            ], 500);
         }
     }
 }
