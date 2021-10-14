@@ -23,9 +23,7 @@
       <div class="col-md-8 text-white">
         <h1>About Us</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Kab. Bantaeng merupakan kabupaten yang terletak di Sulawesi Selatan dan mememiliki pengaruh besar utamanya dalam sektor (SKPD) Satuan Kerja Perangkat Daerah yang menaungi sekror UKM di daerah Bantaeng.
         </p>
       </div>
       <div class="col-md-4">
@@ -42,8 +40,7 @@
     <div class="col-lg-6 m-auto">
       <h1 class="h1">UKM Desa Tombolo</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        Lorem ipsum dolor sit amet.
+     Di bawah ini tentang profil para pelaku UKM Desa Tombolo
       </p>
     </div>
   </div>

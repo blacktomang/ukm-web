@@ -8,8 +8,7 @@
     <div class="col-lg-6 m-auto">
       <h1 class="h1">Produk UKM</h1>
       <p>
-        Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident.
+     PRODUK UKM Desa Tombolo
       </p>
     </div>
   </div>
