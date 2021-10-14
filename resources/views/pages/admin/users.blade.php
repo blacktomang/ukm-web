@@ -30,7 +30,12 @@
               <td>{{$user->phoneNumber}}</td>
               <td>{{$user->address}}</td>
               <td>{{$user->roles[0]->name}}</td>
-              <td> <a href="#" onclick="deleteUser({{$user->id}})" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+              @php
+              $role = "${value->getRoleNames()->first()}";
+              $functionn = "deleteUser(".$user->id.","."'".$role."'".")"
+                 echo"<td> <a href='#' onclick=$functionn class='btn btn-danger'><i class='far fa-trash-alt'></i></a>";
+                  
+              @endphp
 
               </td>
             </tr>
