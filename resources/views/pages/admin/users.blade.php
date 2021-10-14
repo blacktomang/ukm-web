@@ -106,7 +106,7 @@
   });
 
   function deleteUser(id) {
-    $swal.fire({
+    Swal.fire({
         title: 'Yakin?',
         text: "Ingin menghapus data ini!",
         icon: 'warning',
@@ -124,7 +124,7 @@
               .then(({
                 data
               }) => {
-                $swal.fire({
+                Swal.fire({
                   icon: 'success',
                   title: data.message.head,
                   text: data.message.body
@@ -132,7 +132,7 @@
               })
               .catch(err => {
                 let data = err.response.data
-                $swal.fire({
+                Swal.fire({
                   icon: 'error',
                   title: data.message.head,
                   text: data.message.body
