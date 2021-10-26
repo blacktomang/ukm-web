@@ -24,9 +24,9 @@
             <tr>
               <td>{{$key+1}}</td>
               <td>{{$product->product_name}}</td>
-              <td>{{$product->stores->store_name}}</td>
               <td>{{$product->product_price}}</td>
               <td>{{$product->description}}</td>
+              <td>{{$product->stores->store_name}}</td>
               <td><img src="{{asset($product->product_image)}}" alt="..." width="50px" height="30px"></td>
               <td>
                 <ul class="list-unstyled d-flex justify-content-between">
