@@ -37,9 +37,12 @@ class ViewController extends Controller
         }
         return view('welcome', compact('products', 'initiators', 'web_banners'));
     }
-    public function product()
+    public function product(Request $req)
     {
-        $products =  Product::orderBy('rate', 'desc')->get();
+        if($q=$req->query('q')) 
+            $products = Product::where('product_name', 'like', "%$q%")->orderBy('rate', 'desc')->get();
+        else
+            $products = Product::orderBy('rate', 'desc')->get();
         for ($i = 0; $i < count($products); $i++) {
             $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
             $rates = 0;

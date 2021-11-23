@@ -5,6 +5,9 @@
   <div class="card">
     <div class="card-header">
       <h4>Ukm  yang terdaftar</h4>
+      <div class="card-header-action">
+        <input id="search" type="search" placeholder="Cari UKM" class="form-control">
+      </div>
     </div>
     <div class="card-body p-0">
       <div class="table-responsive">
@@ -42,4 +45,14 @@
 </div>
 </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+  $(document).ready(function() {
+    $("#search").keyup(function() {
+      window.location.search = "q=" + $(this).val();
+    });
+  });
+</script>
 @endsection

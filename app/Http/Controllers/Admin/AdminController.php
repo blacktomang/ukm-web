@@ -28,17 +28,26 @@ class AdminController extends Controller
 
         return view('pages.seller.dashboard', compact('users', 'stores', 'products'));
     }
-    public function users()
+    public function users(Request $req)
     {
-        $users = User::whereHas('roles', function ($query) {
-            $query->where('name', '!=', 'admin');
-        })->with('roles')->paginate(10);
+        if($q=$req->query('q')) 
+            $users = User::whereHas('roles', function ($query) {
+                $query->where('name', '!=', 'admin');
+            })->with('roles')->where('name', 'like', "%$q%")->paginate(10);
+        else
+            $users = User::whereHas('roles', function ($query) {
+                $query->where('name', '!=', 'admin');
+            })->with('roles')->paginate(10);
         return view('pages.admin.users', compact('users'));
     }
 
-    public function products()
+    public function products(Request $req)
     {
-        $products = Product::paginate(10);
+        if($q=$req->query('q')) 
+            $products = Product::where('product_name', 'like', "%$q%")->paginate(10);
+        else
+            $products = Product::paginate(10);
+
         // $products =  Product::orderBy('rate', 'desc')->get();
         for ($i = 0; $i < count($products); $i++) {
             $products[$i]['product_price'] = Product::rupiah($products[$i]['product_price']);
@@ -59,9 +68,12 @@ class AdminController extends Controller
         // return view('products', compact('products'));
         return view('pages.admin.products', compact('products'));
     }
-    public function stores()
+    public function stores(Request $req)
     {
-        $stores = Store::paginate(10);
+        if($q=$req->query('q')) 
+            $stores = Store::where('store_name', 'like', "%$q%")->paginate(10);
+        else
+            $stores = Store::paginate(10);
         return view('pages.admin.stores', compact('stores'));
     }
     public function delete_user($id){

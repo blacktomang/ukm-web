@@ -5,12 +5,9 @@
   <div class="card" id="table_data">
     <div class="card-header">
       <h4>User di Website Ukm</h4>
-      <!-- <div class="card-header-action">
-        <button class="btn btn-primary" id="addInbox">
-          <i class="fas fa-plus"></i>
-          <span>Tambah Data</span>
-        </button>
-      </div> -->
+      <div class="card-header-action">
+        <input id="search" type="search" placeholder="Cari User" class="form-control">
+      </div>
     </div>
     <div class="card-body p-0" >
       <div class="table-responsive">
@@ -107,6 +104,12 @@
 @endsection
 @section('script')
 <script>
+
+  $(document).ready(function() {
+    $("#search").keyup(function() {
+      window.location.search = "q=" + $(this).val();
+    });
+  });
 
   $('#addInbox').on('click', () => {
     $('#modal_tambah').modal('show')
