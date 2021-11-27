@@ -59,4 +59,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::delete('reset_data', [AdminController::class, 'maintenance']);
     Route::resource('initiators', InitiatorController::class);
     Route::resource('banners', WebBannerController::class);
+    Route::get('grafik', function(){
+        return view('pages.admin.grafik.index');
+    });
 });
