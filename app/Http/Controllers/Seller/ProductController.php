@@ -189,7 +189,6 @@ class ProductController extends Controller
             return redirect('/product');
             //code...
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             toast("Terjadi kesalahan saat mengupdate data $product->product_name", "error");
             return back();
         }
