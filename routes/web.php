@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\WebBannerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\Seller\StoreController;
 use App\Http\Controllers\Seller\StoreImageController;
@@ -59,7 +60,5 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::delete('reset_data', [AdminController::class, 'maintenance']);
     Route::resource('initiators', InitiatorController::class);
     Route::resource('banners', WebBannerController::class);
-    Route::get('grafik', function(){
-        return view('pages.admin.grafik.index');
-    });
 });
+Route::get('grafik',[GrafikController::class, 'grafik']);
