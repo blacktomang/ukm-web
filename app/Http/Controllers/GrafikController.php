@@ -18,9 +18,12 @@ class GrafikController extends Controller
             for ($i = 0; $i < count($prevRate); $i++) {
                 $prevTotal += $prevRate[$i]->value;
             }
-            $prevAverage = $prevTotal / count($prevRate);
-            $user_click = floatval($product->rate - $prevAverage);
-            array_push($x_y, ['x'=> $user_click, 'y' => $prevAverage]);
+            if (count($prevRate)>0) {
+                $prevAverage = $prevTotal / count($prevRate);
+                $user_click = floatval($product->rate - $prevAverage);
+                array_push($x_y, ['x'=> $user_click, 'y' => $prevAverage]);
+                # code...
+            }
             // $updatedProduct = Product::find($id);
             // $rate_product = $updatedProduct->rates;
             // $total_rate = 0;
