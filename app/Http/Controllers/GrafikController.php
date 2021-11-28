@@ -21,7 +21,7 @@ class GrafikController extends Controller
             if (count($prevRate)>0) {
                 $prevAverage = $prevTotal / count($prevRate);
                 $user_click = floatval($product->rate - $prevAverage);
-                array_push($x_y, ['x'=> $product->price, 'y' => $prevAverage]);
+                array_push($x_y, ['x'=> $prevAverage,  'y' =>$product->price]);
                 # code...
             }
             // $updatedProduct = Product::find($id);
