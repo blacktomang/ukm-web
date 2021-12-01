@@ -60,5 +60,5 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::delete('reset_data', [AdminController::class, 'maintenance']);
     Route::resource('initiators', InitiatorController::class);
     Route::resource('banners', WebBannerController::class);
+    Route::get('grafik',[GrafikController::class, 'grafik'])->name('grafik.ukm');
 });
-Route::get('grafik',[GrafikController::class, 'grafik']);

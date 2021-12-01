@@ -20,6 +20,7 @@
        <li class=" @if($paths=='admin/users') active @endif"><a class="nav-link" href="/admin/users"><i class="fas fa-users"></i><span>Users</span></a></li>
        <li class=" @if($paths=='admin/stores') active @endif"><a class="nav-link" href="/admin/stores"><i class="fas fa-store"></i><span>Ukm</span></a></li>
        <li class="@if($paths=='admin/products') active @endif"><a class="nav-link" href="/admin/products"><i class="fas fa-list-alt"></i><span>Produk</span></a></li>
+       <li class="@if($paths=='admin/grafik') active @endif"><a class="nav-link" href="{{route('grafik.ukm')}}"><i class="fas fa-chart-bar"></i><span>Grafik</span></a></li>
        @endhasrole
        @hasrole('seller')
        <li class="@if($paths=='stores') active @endif"><a class="nav-link" href="/stores"><i class="fas fa-store"></i> <span>Profil UKM</span></a></li>

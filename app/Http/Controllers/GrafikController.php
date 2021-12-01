@@ -21,7 +21,7 @@ class GrafikController extends Controller
             if (count($prevRate)>0) {
                 $prevAverage = $prevTotal / count($prevRate);
                 $user_click = floatval($product->rate - $prevAverage);
-                array_push($x_y, ['x'=> $prevAverage,  'y' =>$product->price]);
+                array_push($x_y, [$prevTotal,  $product->stores->store_name]);
                 # code...
             }
             // $updatedProduct = Product::find($id);
@@ -36,6 +36,7 @@ class GrafikController extends Controller
             //     'rate' => $newRate,
             // ]);
         }
+        // dd($x_y);
         return view('pages.admin.grafik.index', compact('x_y'));
     }
 }
