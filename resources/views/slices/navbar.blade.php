@@ -4,21 +4,22 @@
  @endphp
  <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
    <div class="container text-light">
-     {{-- <div>{{$paths}}</div> --}}
-     <div class="w-100 d-flex justify-content-between">
-       <div>
-         <i class="fa fa-envelope mx-2"></i>
-         <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
-         <i class="fa fa-phone mx-2"></i>
-         <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
-       </div>
-       <div>
-         <a class="text-light" href="https://fb.com/" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
-         <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
-         <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
-         <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
-       </div>
+     {{-- <div>{{$paths}}
+   </div> --}}
+   <div class="w-100 d-flex justify-content-between">
+     <div>
+       <i class="fa fa-envelope mx-2"></i>
+       <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+       <i class="fa fa-phone mx-2"></i>
+       <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
      </div>
+     <div>
+       <a class="text-light" href="https://fb.com/" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+       <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+       <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+       <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+     </div>
+   </div>
    </div>
  </nav>
  <!-- Header -->
@@ -37,20 +38,23 @@
 
      <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
        <div class="flex-fill">
-       <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-         <li class="nav-item">
-           <a class="nav-link @if($paths=='/')active @endif" href="/">Home</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link @if($paths=='ukm-products')active @endif" href="/ukm-products">Produk UKM</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link @if($paths=='about'||preg_match($regex1, $paths)==1)active @endif" href="/about">Tentang</a>
-         </li>
+         <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+           <li class="nav-item">
+             <a class="nav-link @if($paths=='/')active @endif" href="/">Home</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link @if($paths=='ukm-products')active @endif" href="/ukm-products">Produk UKM</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link @if($paths=='about'||preg_match($regex1, $paths)==1)active @endif" href="/about">Tentang</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link @if($paths=='grafik'||preg_match($regex1, $paths)==1)active @endif" href="/grafik">Grafik UKM</a>
+           </li>
 
-       </ul>
-     </div>
-     <!-- <div class="navbar align-self-center d-flex">
+         </ul>
+       </div>
+       <!-- <div class="navbar align-self-center d-flex">
        <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
          <div class="input-group">
            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
@@ -64,8 +68,8 @@
        </a>
        </a>
      </div> -->
-     <div class="navbar align-self-center d-flex">
-       {{-- <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3"> --}}
+       <div class="navbar align-self-center d-flex">
+         {{-- <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3"> --}}
          <a class="nav-icon position-relative text-decoration-none" @if (Auth::check()) href="#" data-bs-toggle="modal" data-bs-target="#templatemo_login" @else href="/login" @endif>
            @if (Auth::check())
            <i class="fa fa-fw fa-user text-dark mr-3"></i>
@@ -73,9 +77,9 @@
            <i class="fa fa-fw fa-sign-in-alt text-dark mr-3"></i>
            @endif
          </a>
-       {{-- </div> --}}
+         {{-- </div> --}}
+       </div>
      </div>
-   </div>
 
    </div>
  </nav>
