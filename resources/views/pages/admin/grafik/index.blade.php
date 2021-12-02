@@ -1,17 +1,18 @@
 @section('title', 'Grafik' )
-@extends('layouts.seller')
+@extends('layouts.web')
 @section('content')
-<div class="section-body">
-  <div class="card">
+<section class="container py-5">
+  <div class="card p-4">
+  {{-- <div class="card"> --}}
     <div class="card-header">
       <h4>Data Rating dan Klik UKM</h4>
     </div>
     <div class="card-body">
-      <canvas id="myChart" width="400" height="200"></canvas>
+      <canvas id="myChart" width="400" height="100"></canvas>
     </div>
   </div>
 </div>
-
+</section>
 @endsection
 @section('script')
 

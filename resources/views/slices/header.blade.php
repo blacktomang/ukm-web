@@ -19,9 +19,10 @@
   <link rel="stylesheet" href="{{asset('template/assets/css/fontawesome.min.css')}}">
   @yield('another-style-sheet')
   <link rel="stylesheet" href="{{asset('customs/custom.css')}}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
 </head>
 @php
 $paths = Request::path();
 @endphp
 
-<body @if($paths=="login") style="background-color: #00599e;" @endif>
+<body @if($paths=="login" ) style="background-color: #00599e;" @endif>
