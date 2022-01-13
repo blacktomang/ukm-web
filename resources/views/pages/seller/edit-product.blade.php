@@ -22,6 +22,14 @@
             <label for="">Harga</label>
             <input type="text" class="form-control" value="{{$product->product_price}}" name="product_price">
           </div>
+          <div class="form-group col-md-6">
+            <label for="">Stok</label>
+            <input type="text" class="form-control" value="{{$product->stocks}}" name="stocks">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Deskripsi</label>
+            <input type="text" class="form-control" value="{{$product->description}}" name="description">
+          </div>
           <div class="form-group col-md-12">
             <label for="">Gambar</label>
             <input type="file" class="form-control-file" name="product_image" accept="image">

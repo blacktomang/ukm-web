@@ -176,7 +176,8 @@ class ProductController extends Controller
                 $product->update([
                     'product_name' =>  $name,
                     'product_price' =>  $price,
-                    'product_image' => $this->pathImage . $fileName
+                    'description' =>  $request->description,
+                    'stocks' =>  $request->stocks,                    'product_image' => $this->pathImage . $fileName
                 ]);
                 toast("Data $product->product_name berhasil diupdate", "success");
                 return redirect('/product');
@@ -184,6 +185,8 @@ class ProductController extends Controller
             $product->update([
                 'product_name' =>  $name,
                 'product_price' =>  $price,
+                'description' =>  $request->description,
+                'stocks' =>  $request->stocks,    
             ]);
             toast("Data $product->product_name berhasil diupdate","success");
             return redirect('/product');
