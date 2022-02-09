@@ -46,7 +46,6 @@ class GrafikController extends Controller
             //     'rate' => $newRate,
             // ]);
         }
-        // dd($x_y);
         return view('pages.admin.grafik.index', compact('x_y'));
     }
 }

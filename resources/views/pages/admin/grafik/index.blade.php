@@ -25,10 +25,10 @@
 
      
        php_array = @json($x_y);
-       console.log(php_array);
        colors = php_array.map(()=>{
          color = Math.floor(Math.random()*16777215).toString(16)
-        return "#"+color});
+        return "#"+color
+      });
       //  var global = Chart.defaults.global;
        var ctx = document.getElementById('myChart').getContext('2d');
       var myChart = new Chart(ctx, {
@@ -51,22 +51,13 @@
           display: false,
           drawBorder: true,
           drawOnChartArea: true,
-          drawTicks: true,
+          drawTicks: true
         }
       },
       y: {
         grid: {
         display:false,
-          drawBorder: false,
-          // color: function(context) {
-          //   if (context.tick.value > 0) {
-          //     return Utils.CHART_COLORS.green;
-          //   } else if (context.tick.value < 0) {
-          //     return Utils.CHART_COLORS.red;
-          //   }
-
-          //   return '#000000';
-          // },
+          drawBorder: false
         },
       }
       }
