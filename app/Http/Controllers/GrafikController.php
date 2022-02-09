@@ -13,6 +13,7 @@ class GrafikController extends Controller
     {
         $stores = Store::all();
         $x_y = [];
+        $p = [];
         foreach ($stores as $key => $store) {
             if ($store->products) {
                 $products = $store->products;
@@ -29,23 +30,21 @@ class GrafikController extends Controller
             }else{
                 array_push($x_y, [0,  $store->store_name]);
             }
-            # code...
-            // if (count($prevRate)>0) {
-            // }else{
-
-            // }
-            // $updatedProduct = Product::find($id);
-            // $rate_product = $updatedProduct->rates;
-            // $total_rate = 0;
-            // for ($i = 0; $i < count($rate_product); $i++) {
-            //     $total_rate += $rate_product[$i]->value;
-            // }
-            // $newAverage = $total_rate / count($rate_product);
-            // $newRate = $newAverage + $user_click;
-            // $product->update([
-            //     'rate' => $newRate,
-            // ]);
         }
-        return view('pages.admin.grafik.index', compact('x_y'));
+
+        foreach ($stores as $store) {
+            if ($store->products) {
+                $products = $store->products;
+                $prevTotal = 0;
+                foreach ($products as $product) {
+                    $prevTotal += $product->reviews()->count();
+                }
+                array_push($p, $prevTotal);
+            }else{
+                array_push($p, 0);
+            }
+        }
+
+        return view('pages.admin.grafik.index', compact(['x_y', 'p']));
     }
 }
